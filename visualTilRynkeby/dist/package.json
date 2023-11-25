@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "author": {"name":"Andreas Methling","email":"andreas.methling@gmail.com"},
+    "resources": [
+        {
+            "resourceId": "rId0",
+            "sourceType": 5,
+            "file": "resources/visualTilRynkeby4C35F582EB47406BAD49B769845105B3.pbiviz.json"
+        }
+    ],
+    "visual": {"name":"visualTilRynkeby","displayName":"VisualTilRynkeby","guid":"visualTilRynkeby4C35F582EB47406BAD49B769845105B3","visualClassName":"Visual","version":"1.0.0","description":"Scatterplot til Rynkeby","supportUrl":"Ingenting.dk","gitHubUrl":""},
+    "metadata": {
+        "pbivizjson": {
+            "resourceId": "rId0"
+        }
+    }  
+}

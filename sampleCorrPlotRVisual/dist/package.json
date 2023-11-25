@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0.0",
+    "author": {"name":"jep","email":"jada.dk"},
+    "resources": [
+        {
+            "resourceId": "rId0",
+            "sourceType": 5,
+            "file": "resources/sampleCorrPlotRVisualB3968A9487B54C63AAA9C3B53CC67796.pbiviz.json"
+        }
+    ],
+    "visual": {"name":"sampleCorrPlotRVisual","displayName":"sampleCorrPlotRVisual","guid":"sampleCorrPlotRVisualB3968A9487B54C63AAA9C3B53CC67796","visualClassName":"Visual","version":"1.0.0.0","description":"test","supportUrl":"test.dk","gitHubUrl":""},
+    "metadata": {
+        "pbivizjson": {
+            "resourceId": "rId0"
+        }
+    }  
+}

@@ -1,0 +1,103 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Values",
+      "kind": "GroupingOrMeasure",
+      "name": "Values"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "scriptResult": {
+        "dataInput": {
+          "table": {
+            "rows": {
+              "select": [
+                {
+                  "for": {
+                    "in": "Values"
+                  }
+                }
+              ],
+              "dataReductionAlgorithm": {
+                "top": {}
+              }
+            }
+          }
+        },
+        "script": {
+          "scriptProviderDefault": "R",
+          "scriptOutputType": "png",
+          "source": {
+            "objectName": "rcv_script",
+            "propertyName": "source"
+          },
+          "provider": {
+            "objectName": "rcv_script",
+            "propertyName": "provider"
+          }
+        }
+      }
+    }
+  ],
+  "objects": {
+    "rcv_script": {
+      "properties": {
+        "provider": {
+          "type": {
+            "text": true
+          }
+        },
+        "source": {
+          "type": {
+            "scripting": {
+              "source": true
+            }
+          }
+        }
+      }
+    },"settings": {
+      "displayName": "Visual Settings",
+      "description": "Settings to control the look and feel of the visual",
+      "properties": {
+        "method": {
+          "displayName": "Data Look",
+          "description": "Control the look and feel of the data points in the visual",
+          "type": {
+            "enumeration": [
+              {
+                "displayName": "Circle",
+                "value": "circle"
+              },
+              {
+                "displayName": "Square",
+                "value": "square"
+              },
+              {
+                "displayName": "Ellipse",
+                "value": "ellipse"
+              },
+              {
+                "displayName": "Number",
+                "value": "number"
+              },
+              {
+                "displayName": "Shade",
+                "value": "shade"
+              },
+              {
+                "displayName": "Color",
+                "value": "color"
+              },
+              {
+                "displayName": "Pie",
+                "value": "pie"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "suppressDefaultTitle": true
+}

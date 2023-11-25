@@ -1,0 +1,476 @@
+{
+  "dataRoles": [
+    {
+        "displayName": "Category",
+        "description": "Category to show on the x_axis",
+        "name": "category",
+        "kind": "Grouping"
+    },
+    {
+        "displayName": "Lower column value 1",
+        "name": "l_col1",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Lower column value 2",
+        "name": "l_col2",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Lower column value 3",
+        "name": "l_col3",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Lower column value 4",
+        "name": "l_col4",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Lower column value 5",
+        "name": "l_col5",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Upper column value 1",
+        "name": "u_col1",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Upper column value 2",
+        "name": "u_col2",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Upper column value 3",
+        "name": "u_col3",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Upper column value 4",
+        "name": "u_col4",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Upper column value 5",
+        "name": "u_col5",
+        "kind": "GroupingOrMeasure"
+    },
+    {
+        "displayName": "Small Multiple",
+        "name": "small_multi",
+        "kind": "GroupingOrMeasure"
+    }
+],
+  "dataViewMappings": [
+    {
+      "conditions": [{
+
+        "category": {
+          "max": 1
+        },
+        "l_col1": {
+          "max": 1
+        },
+        "l_col2": {
+          "min": 0,
+          "max": 1
+        },
+        "l_col3": {
+          "min": 0,
+          "max": 1
+        },
+        "l_col4": {
+          "min": 0,
+          "max": 1
+        },
+        "l_col5": {
+          "min": 0,
+          "max": 1
+        },
+        "u_col1": {
+          "max": 1
+        },
+        "u_col2": {
+          "min": 0,
+          "max": 1
+        },
+        "u_col3": {
+          "min": 0,
+          "max": 1
+        },
+        "u_col4": {
+          "min": 0,
+          "max": 1
+        },
+        "u_col5": {
+          "min": 0,
+          "max": 1
+        },
+        "small_multi": {
+          "min": 0,
+          "max": 1
+        }
+      }],
+      "scriptResult": {
+        "dataInput": {
+          "table": {
+            "rows": {
+              "select": [
+                    {
+                        "for": {
+                            "in": "category"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "l_col1"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "l_col2"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "l_col3"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "l_col4"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "l_col5"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "u_col1"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "u_col2"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "u_col3"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "u_col4"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "u_col5"
+                        }
+                    },
+                    {
+                        "for": {
+                            "in": "small_multi"
+                        }
+                    }
+                ],
+              "dataReductionAlgorithm": {
+                "top": {}
+              }
+            }
+          }
+        },
+        "script": {
+          "scriptProviderDefault": "R",
+          "scriptOutputType": "html",
+          "source": {
+            "objectName": "rcv_script",
+            "propertyName": "source"
+          },
+          "provider": {
+            "objectName": "rcv_script",
+            "propertyName": "provider"
+          }
+        }
+      }
+    }
+  ],
+  "objects": {
+    "rcv_script": {
+      "properties": {
+        "provider": {
+          "type": {
+            "text": true
+          }
+        },
+        "source": {
+          "type": {
+            "scripting": {
+              "source": true
+            }
+          }
+        }
+      }
+    },"settings": {
+      "displayName": "Visual Settings",
+     "description": "Visual Settings Tooltip",
+     "properties": {
+         "lineColor": {
+         "displayName": "Line Color",
+         "type": { "fill": { "solid": { "color": true }}}
+         }
+     }
+ },
+    "LowerColumnValue1Format": {
+      "displayName": "Lower column value 1",
+      "description": "Lower column value 1 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "LowerColumnValue2Format": {
+      "displayName": "Lower column value 2",
+      "description": "Lower column value 2 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "LowerColumnValue3Format": {
+      "displayName": "Lower column value 3",
+      "description": "Lower column value 3 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "LowerColumnValue4Format": {
+      "displayName": "Lower column value 4",
+      "description": "Lower column value 4 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "LowerColumnValue5Format": {
+      "displayName": "Lower column value 5",
+      "description": "Lower column value 5 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "UpperColumnValue1Format": {
+      "displayName": "Upper column value 1",
+      "description": "Upper column value 1 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "UpperColumnValue2Format": {
+      "displayName": "Upper column value 2",
+      "description": "Upper column value 2 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "UpperColumnValue3Format": {
+      "displayName": "Upper column value 3",
+      "description": "Upper column value 3 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "UpperColumnValue4Format": {
+      "displayName": "Upper column value 4",
+      "description": "Upper column value 4 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "UpperColumnValue5Format": {
+      "displayName": "Upper column value 5",
+      "description": "Upper column value 5 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "mySettingsAxes": {
+      "displayName": "Axes",
+      "description": "Axes and labels settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "Labels color",
+          "description": "Labels color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "textSize": {
+          "displayName": "Labels size",
+          "type": {
+            "numeric": true
+          }
+        },
+        "sizeTicks": {
+          "displayName": "Size ticks",
+          "description": "Size ticks",
+          "type": {
+            "enumeration": [{
+                "displayName": "None",
+                "value": "0"
+              },
+              {
+                "displayName": "4",
+                "value": "4"
+              },
+              {
+                "displayName": "6",
+                "value": "6"
+              },
+              {
+                "displayName": "8",
+                "value": "8"
+              },
+              {
+                "displayName": "10",
+                "value": "10"
+              },
+              {
+                "displayName": "12",
+                "value": "12"
+              },
+              {
+                "displayName": "14",
+                "value": "14"
+              },
+              {
+                "displayName": "16",
+                "value": "16"
+              },
+              {
+                "displayName": "18",
+                "value": "18"
+              },
+              {
+                "displayName": "20",
+                "value": "20"
+              }
+            ]
+          }
+        },
+        "axisLine": {
+          "displayName": "Axis line",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    }
+  },
+  "suppressDefaultTitle": false
+}
