@@ -3,7 +3,7 @@ var demoCreation522AEF1866B94124B4C4F588A968843A_DEBUG;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 934:
+/***/ 830:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -73,7 +73,7 @@ function runHTMLWidgetRenderer() {
 
 /***/ }),
 
-/***/ 50:
+/***/ 539:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -196,14 +196,14 @@ class UpperColumnValue5Format {
 
 /***/ }),
 
-/***/ 728:
+/***/ 699:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   u: () => (/* binding */ Visual)
 /* harmony export */ });
-/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
-/* harmony import */ var _htmlInjectionUtility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(934);
+/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(539);
+/* harmony import */ var _htmlInjectionUtility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(830);
 /* provided dependency */ var window = __webpack_require__(738);
 /*
 *  Power BI Visual CLI
@@ -583,7 +583,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _src_visual__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(728);
+/* harmony import */ var _src_visual__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(699);
 /* provided dependency */ var window = __webpack_require__(738);
 
 var powerbiKey = "powerbi";
