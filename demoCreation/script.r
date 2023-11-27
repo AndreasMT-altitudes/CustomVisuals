@@ -142,21 +142,52 @@ if (length(Values2) > 2 && exists("small_multi")) {
       mutate(newx_axis = str_wrap(x_axis, width = 10))
 }
 
-if (length(Values2) < 2) {
-   if(exists("small_multi")) {
+if (exists("small_multi")) {
+   if(length(Values2) < 3) {
 g = ggplot(df) +
   geom_col(aes(x =newx_axis,
                y = values,
                fill = type),
            width = 0.6) +
-  facet_wrap(~small_multi)+
+  facet_wrap(~small)+
+  scale_fill_manual(values = colors,
+                     name = NULL)+
+           scale_y_continuous(labels = comma_format(big.mark = ".", 
+                                               decimal.mark = ","))+
+              labs(x = "", y = "");
+   } else if (length(Values) < 3){
+  g = ggplot(df2) +
+  geom_col( aes(newx_axis,  
+               y = values, fill = type), 
+           width = 0.35) +
+  facet_wrap(~small)+
   scale_fill_manual(values = colors,
                      name = NULL)+
            scale_y_continuous(labels = comma_format(big.mark = ".", 
                                                decimal.mark = ","))+
               labs(x = "", y = "");
    } else {
-    g = ggplot(df) +
+  g = ggplot(df) +
+  geom_col(aes(x =newx_axis,
+               y = values,
+               fill = type),
+           width = 0.6) +
+   geom_col(data = df2, aes(newx_axis,  
+               y = values, fill = type), 
+           width = 0.35,
+           inherit.aes = FALSE) +
+             facet_wrap(~small)+
+  scale_fill_manual(values = colors,
+                     name = NULL)+
+           scale_y_continuous(labels = comma_format(big.mark = ".", 
+                                               decimal.mark = ","))+
+              labs(x = "", y = "");
+  
+
+   }
+} else if (!exists("small_multi")) {
+  if (length(Values2) < 2){
+g = ggplot(df) +
   geom_col(aes(x =newx_axis,
                y = values,
                fill = type),
@@ -166,19 +197,17 @@ g = ggplot(df) +
            scale_y_continuous(labels = comma_format(big.mark = ".", 
                                                decimal.mark = ","))+
               labs(x = "", y = "");
-   }
-
-} else if (length(Values) < 2) {
-g = ggplot(df) +
-    geom_col(data = df2, aes(newx_axis,  
+  } else if (length(Values) < 2) {
+g = ggplot(df2) +
+  geom_col( aes(newx_axis,  
                y = values, fill = type), 
-           width = 0.35,
-           inherit.aes = FALSE) +
+           width = 0.35) +
   scale_fill_manual(values = colors,
                      name = NULL)+
            scale_y_continuous(labels = comma_format(big.mark = ".", 
                                                decimal.mark = ","))+
               labs(x = "", y = "");
+  }
 } else {
 g = ggplot(df) +
   geom_col(aes(x =newx_axis,
