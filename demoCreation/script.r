@@ -116,13 +116,13 @@ colnames(Values2)[1] = "x_axis"
 if (length(Values) > 2 && exists("small_multi")) {
     df = Values %>% 
       group_by(x_axis, small) %>% 
-      summarise_all(.funs = c(sum="sum")) %>%
+      summarise_all(list(c(sum="sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10))
   }  else if (length(Values) > 1 && !exists("small_multi")) {
     df = Values %>% 
       group_by(x_axis) %>% 
-      summarise_all(.funs = c(sum="sum")) %>%
+      summarise_all(list(c(sum="sum"))) %>%
       pivot_longer(-x_axis, names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10))
 }
@@ -131,13 +131,13 @@ if (length(Values2) > 2 && exists("small_multi")) {
 
     df2 = Values2 %>% 
       group_by(x_axis, small) %>% 
-      summarise_all(.funs = c(sum="sum")) %>%
+      summarise_all(list(c(sum="sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10))
     } else if (length(Values2) > 1 && !exists("small_multi")){
     df2 = Values2 %>% 
       group_by(x_axis) %>% 
-      summarise_all(.funs = c(sum="sum")) %>%
+      summarise_all(list(c(sum="sum")))%>%
       pivot_longer(-x_axis, names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10))
 }
@@ -207,6 +207,23 @@ g = ggplot(df2) +
            scale_y_continuous(labels = comma_format(big.mark = ".", 
                                                decimal.mark = ","))+
               labs(x = "", y = "");
+  } else {
+    g = ggplot(df) +
+  geom_col(aes(x =newx_axis,
+               y = values,
+               fill = type),
+           width = 0.6) +
+   geom_col(data = df2, aes(newx_axis,  
+               y = values, fill = type), 
+           width = 0.35,
+           inherit.aes = FALSE) +
+  scale_fill_manual(values = colors,
+                     name = NULL)+
+           scale_y_continuous(labels = comma_format(big.mark = ".", 
+                                               decimal.mark = ","))+
+              labs(x = "", y = "");
+  
+
   }
 } else {
 g = ggplot(df) +
