@@ -30,7 +30,6 @@ import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
 export class VisualSettings extends DataViewObjectsParser {
-  public settings_Legend_params: settings_Legend_params= new settings_Legend_params();
   public mySettingsAxes: mySettingsAxes = new mySettingsAxes(); 
   public LowerColumnValue1Format: LowerColumnValue1Format = new LowerColumnValue1Format();
   public LowerColumnValue2Format: LowerColumnValue2Format = new LowerColumnValue2Format();   
@@ -51,11 +50,6 @@ export class rcv_scriptSettings {
   public provider
   public source     }
     
-
-export class settings_Legend_params
-{
-public Legend_Theme: string="Blues";
-}
 
 export class mySettingsAxes {
   public colLabel: string = "grey";

@@ -200,31 +200,82 @@
     }
   ],
   "objects": {
-    "rcv_script": {
+    "mySettingsAxes": {
+      "displayName": "Axes",
+      "description": "Axes and labels settings",
       "properties": {
-        "provider": {
+        "colLabel": {
+          "displayName": "Labels color",
+          "description": "Labels color",
           "type": {
-            "text": true
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
           }
         },
-        "source": {
+        "textSize": {
+          "displayName": "Labels size",
           "type": {
-            "scripting": {
-              "source": true
-            }
+            "numeric": true
+          }
+        },
+        "sizeTicks": {
+          "displayName": "Size ticks",
+          "description": "Size ticks",
+          "type": {
+            "enumeration": [{
+                "displayName": "None",
+                "value": "0"
+              },
+              {
+                "displayName": "4",
+                "value": "4"
+              },
+              {
+                "displayName": "6",
+                "value": "6"
+              },
+              {
+                "displayName": "8",
+                "value": "8"
+              },
+              {
+                "displayName": "10",
+                "value": "10"
+              },
+              {
+                "displayName": "12",
+                "value": "12"
+              },
+              {
+                "displayName": "14",
+                "value": "14"
+              },
+              {
+                "displayName": "16",
+                "value": "16"
+              },
+              {
+                "displayName": "18",
+                "value": "18"
+              },
+              {
+                "displayName": "20",
+                "value": "20"
+              }
+            ]
+          }
+        },
+        "axisLine": {
+          "displayName": "Axis line",
+          "type": {
+            "bool": true
           }
         }
       }
-    },"settings": {
-      "displayName": "Visual Settings",
-     "description": "Visual Settings Tooltip",
-     "properties": {
-         "lineColor": {
-         "displayName": "Line Color",
-         "type": { "fill": { "solid": { "color": true }}}
-         }
-     }
- },
+    },
     "LowerColumnValue1Format": {
       "displayName": "Lower column value 1",
       "description": "Lower column value 1 settings",
@@ -391,82 +442,6 @@
                 "color": true
               }
             }
-          }
-        }
-      }
-    },
-    "mySettingsAxes": {
-      "displayName": "Axes",
-      "description": "Axes and labels settings",
-      "properties": {
-        "colLabel": {
-          "displayName": "Labels color",
-          "description": "Labels color",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
-        },
-        "textSize": {
-          "displayName": "Labels size",
-          "type": {
-            "numeric": true
-          }
-        },
-        "sizeTicks": {
-          "displayName": "Size ticks",
-          "description": "Size ticks",
-          "type": {
-            "enumeration": [{
-                "displayName": "None",
-                "value": "0"
-              },
-              {
-                "displayName": "4",
-                "value": "4"
-              },
-              {
-                "displayName": "6",
-                "value": "6"
-              },
-              {
-                "displayName": "8",
-                "value": "8"
-              },
-              {
-                "displayName": "10",
-                "value": "10"
-              },
-              {
-                "displayName": "12",
-                "value": "12"
-              },
-              {
-                "displayName": "14",
-                "value": "14"
-              },
-              {
-                "displayName": "16",
-                "value": "16"
-              },
-              {
-                "displayName": "18",
-                "value": "18"
-              },
-              {
-                "displayName": "20",
-                "value": "20"
-              }
-            ]
-          }
-        },
-        "axisLine": {
-          "displayName": "Axis line",
-          "type": {
-            "bool": true
           }
         }
       }

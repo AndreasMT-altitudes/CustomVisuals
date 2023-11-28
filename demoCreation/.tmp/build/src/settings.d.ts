@@ -1,7 +1,6 @@
 import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 export declare class VisualSettings extends DataViewObjectsParser {
-    settings_Legend_params: settings_Legend_params;
     mySettingsAxes: mySettingsAxes;
     LowerColumnValue1Format: LowerColumnValue1Format;
     LowerColumnValue2Format: LowerColumnValue2Format;
@@ -18,9 +17,6 @@ export declare class VisualSettings extends DataViewObjectsParser {
 export declare class rcv_scriptSettings {
     provider: any;
     source: any;
-}
-export declare class settings_Legend_params {
-    Legend_Theme: string;
 }
 export declare class mySettingsAxes {
     colLabel: string;
