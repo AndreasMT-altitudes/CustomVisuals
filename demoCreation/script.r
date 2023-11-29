@@ -36,214 +36,169 @@ if(!exists("category")) {
   quit()                       
 }
 
+###########Settings defualt values for formating options############
+
+
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
-num_l_cols <- 5
-num_u_cols <- 5
+num_cols <- 5
 
 category[] <- lapply(category[1], as.character)
 
 Values <- data.frame(category)
 Values2 <- data.frame(category)
 
-
-# Initialize Values and Values2
-if (exists("small_multi")) {
-  small_multi[] <- lapply(small_multi[1], as.character)
-
-  Values <- data.frame(category, small_multi)
-
-  Values2 <- data.frame(category, small_multi)
-
-  colnames(Values2)[length(Values2)] = "small"
-
-  colnames(Values)[length(Values)] = "small"
-}
-
-# Loop through l_cols
-for (i in 1:num_l_cols) {
-  l_col_name <- paste("l_col", i, sep="")
-  if (exists("category") && exists(l_col_name)) {
-    Values[[l_col_name]] <- get(l_col_name)
+initialize_data_frame <- function(df, str) {
+  if (exists("small_multi")) {
+    small_multi[] <- lapply(small_multi[1], as.character)
+    df <- data.frame(category, small_multi)
+    colnames(df)[length(df)] <- "small"
   }
+
+  for (i in 1:num_cols) {
+    col_name <- paste(str, "_col", i, sep = "")
+    if (exists("category") && exists(col_name)) {
+      df[[col_name]] <- get(col_name)
+      colnames(df)[length(df)] <- colnames(get(col_name))
+    }
+  }
+  return(df)
 }
 
-# Loop through u_cols
-for (i in 1:num_u_cols) {
-  u_col_name <- paste("u_col", i, sep="")
-  if (exists("category") && exists(u_col_name)) {
-    Values2[[u_col_name]] <- get(u_col_name)
-  }
-}
+Values <- initialize_data_frame(Values, "l")
+Values2 <- initialize_data_frame(Values2, "u")
 
 
 #######Color Specefications
-default_labels <- c("blue", "#ADD8E6", "#1BD8E6", "red", "orange", "green", "lightgreen", "chartreuse", "lightyellow", "purple")
+default_labels <- c("blue", "#ADD8E6", "#1BD8E6", "red", "orange", "green", "lightgreen", "chartreuse4", "lightyellow", "purple")
 colors = c()
 colors2 = c()
 
-for (i in 1:num_l_cols) {
+colors <- lapply(1:num_cols, function(i) {
   label_name <- paste("LowerColumnValue", i, "Format_colLabel", sep = "")
-  l_col_name <- paste("l_col", i, sep="")
-  if (!exists(label_name) && exists(l_col_name)) {
-    colors = append(colors, default_labels[i])
-  } else if (exists(label_name) && exists(l_col_name)){
-    pick = get(label_name)
-    colors = append(colors, pick)
+  col_name <- paste("l_col", i, sep = "")
+  if (!exists(label_name) && exists(col_name)) {
+    return(default_labels[i])
+  } else if (exists(label_name) && exists(col_name)) {
+    return(get(label_name))
   }
-}
+})
 
-for (i in 1:num_u_cols) {
+colors2 <- lapply(1:num_cols, function(i) {
   label_name <- paste("UpperColumnValue", i, "Format_colLabel", sep = "")
-  u_col_name <- paste("u_col", i, sep="")
-  label = 5 + i
-  if (!exists(label_name) && exists(u_col_name)) {
-    colors2 = append(colors2, default_labels[label])
-  } else if (exists(label_name) && exists(u_col_name)){
-    pick = get(label_name)
-    colors2 = append(colors2, pick)
+  col_name <- paste("u_col", i, sep = "")
+  label <- 5 + i
+  if (!exists(label_name) && exists(col_name)) {
+    return(default_labels[label])
+  } else if (exists(label_name) && exists(col_name)) {
+    return(get(label_name))
   }
-}
+})
 
-colors = append(colors, colors2)
+all_colors <- unlist(c(colors, colors2))
 
 ###########Transforming Dataframe###############
 colnames(Values)[1] = "x_axis"
 colnames(Values2)[1] = "x_axis"
 
-
-if (length(Values) > 2 && exists("small_multi")) {
-    df = Values %>% 
-      group_by(x_axis, small) %>% 
-      summarise_all(list(c(sum="sum"))) %>%
-      pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
-      mutate(newx_axis = str_wrap(x_axis, width = 10))
-  }  else if (length(Values) > 1 && !exists("small_multi")) {
-    df = Values %>% 
-      group_by(x_axis) %>% 
-      summarise_all(list(c(sum="sum"))) %>%
-      pivot_longer(-x_axis, names_to = "type", values_to = "values") %>%
-      mutate(newx_axis = str_wrap(x_axis, width = 10))
+#Function to make alphabetical order of columns
+assign_numeric_order <- function(data, type_column) {
+  data %>%
+    mutate(numeric_order = match({{type_column}}, rev(sort(unique({{type_column}})))))
 }
 
-if (length(Values2) > 2 && exists("small_multi")) {
-
-    df2 = Values2 %>% 
-      group_by(x_axis, small) %>% 
-      summarise_all(list(c(sum="sum"))) %>%
+# Function to create summary data frame
+create_summary_df <- function(data) {
+  if (exists("small_multi") && length(data) > 2) {
+    df = Values %>%
+      group_by(x_axis, small) %>%
+      summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
-      mutate(newx_axis = str_wrap(x_axis, width = 10))
-    } else if (length(Values2) > 1 && !exists("small_multi")){
-    df2 = Values2 %>% 
-      group_by(x_axis) %>% 
-      summarise_all(list(c(sum="sum")))%>%
-      pivot_longer(-x_axis, names_to = "type", values_to = "values") %>%
-      mutate(newx_axis = str_wrap(x_axis, width = 10))
-}
-
-if (exists("small_multi")) {
-   if(length(Values2) < 3) {
-g = ggplot(df) +
-  geom_col(aes(x =newx_axis,
-               y = values,
-               fill = type),
-           width = 0.6) +
-  facet_wrap(~small)+
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-   } else if (length(Values) < 3){
-  g = ggplot(df2) +
-  geom_col( aes(newx_axis,  
-               y = values, fill = type), 
-           width = 0.35) +
-  facet_wrap(~small)+
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-   } else {
-  g = ggplot(df) +
-  geom_col(aes(x =newx_axis,
-               y = values,
-               fill = type),
-           width = 0.6) +
-   geom_col(data = df2, aes(newx_axis,  
-               y = values, fill = type), 
-           width = 0.35,
-           inherit.aes = FALSE) +
-             facet_wrap(~small)+
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-  
-
-   }
-} else if (!exists("small_multi")) {
-  if (length(Values2) < 2){
-g = ggplot(df) +
-  geom_col(aes(x =newx_axis,
-               y = values,
-               fill = type),
-           width = 0.6) +
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-  } else if (length(Values) < 2) {
-g = ggplot(df2) +
-  geom_col( aes(newx_axis,  
-               y = values, fill = type), 
-           width = 0.35) +
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
+      mutate(newx_axis = str_wrap(x_axis, width = 10),
+      values2 = paste0(as.character(round(values / 1e6, 0)), "M")) %>%
+      assign_numeric_order(type_column = type) %>%
+      group_by(x_axis, small) %>%
+      arrange(x_axis,small, numeric_order) %>%
+      mutate(sum_values = accumulate(values, ~.x + .y)[numeric_order]) %>%
+      ungroup()
+  } else if (!exists("small_multi") && length(data) > 1) {
+    df = data %>%
+      group_by(x_axis) %>%
+      summarise_all(list(c(sum = "sum"))) %>%
+      pivot_longer(c(-x_axis), names_to = "type", values_to = "values") %>%
+      mutate(newx_axis = str_wrap(x_axis, width = 10),
+      values2 = paste0(as.character(round(values / 1e6, 0)), "M"))%>%
+      assign_numeric_order(type_column = type) %>%
+      group_by(x_axis) %>%
+      arrange(x_axis, numeric_order) %>%
+      mutate(sum_values = accumulate(values, ~.x + .y)[numeric_order]) %>%
+      ungroup()
   } else {
-    g = ggplot(df) +
-  geom_col(aes(x =newx_axis,
-               y = values,
-               fill = type),
-           width = 0.6) +
-   geom_col(data = df2, aes(newx_axis,  
-               y = values, fill = type), 
-           width = 0.35,
-           inherit.aes = FALSE) +
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-  
-
+    df = data.frame()  # or NULL, depending on your use case
   }
-} else {
-g = ggplot(df) +
-  geom_col(aes(x =newx_axis,
-               y = values,
-               fill = type),
-           width = 0.6) +
-   geom_col(data = df2, aes(newx_axis,  
-               y = values, fill = type), 
-           width = 0.35,
-           inherit.aes = FALSE) +
-  scale_fill_manual(values = colors,
-                     name = NULL)+
-           scale_y_continuous(labels = comma_format(big.mark = ".", 
-                                               decimal.mark = ","))+
-              labs(x = "", y = "");
-  
+  return(df)
 }
 
-g2 = ggplot() + geom_text(aes(x = 0.5, y = 0.5, label = colors))
+# Create summary data frames
+df = create_summary_df(Values)
+df2 = create_summary_df(Values2)
+
+#Add type for ploting
+df = df %>%
+  mutate(type2 = "type1")
+df2 = df2 %>%
+  mutate(type2 = "type2")
+
+###############Plotting section################
+
+g <- ggplot() +
+  scale_fill_manual(values = all_colors, name = NULL) +
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
+  labs(x = "", y = "")
+
+if(exists("small_multi")) {
+  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values"))
+
+  label_text = unique(data_to_use$type)
+
+  g <- g +
+    geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
+             aes(x = newx_axis, y = values, fill = type), 
+             width = 0.6) +
+    geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
+             aes(x = newx_axis, y = values, fill = type), 
+             width = 0.35)+
+             facet_grid(~small) + ##### Tror alt til small multi format kan lægges her
+             theme(strip.background =element_rect(fill="#FFFFFF"))
+
+  for (label in label_text) {
+  g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
+                     aes(x = newx_axis, y = sum_values, label = values2),
+                     inherit.aes = FALSE)  # Adjust the nudge_y as needed
+}
+} else {
+  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values"))
+
+  label_text = unique(data_to_use$type)
+
+  g <- g +
+    geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
+             aes(x = newx_axis, y = values, fill = type), 
+             width = 0.6) +
+    geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
+             aes(x = newx_axis, y = values, fill = type), 
+             width = 0.35) 
+ 
+  for (label in label_text) {
+  g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
+                     aes(x = newx_axis, y = sum_values, label = values2),
+                     inherit.aes = FALSE)  # Adjust the nudge_y as needed
+}
+}
+
+
+g2 = ggplot() + geom_text(aes(x = 0.5, y = 0.5, label = "test"))
 ####################################################
 
 ############# Create and save widget ###############

@@ -290,6 +290,13 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "description": "Show label or not",
+          "type": {
+            "bool":false
+          }
         }
       }
     },
