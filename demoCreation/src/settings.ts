@@ -16,7 +16,7 @@
  *  all copies or substantial portions of the Software.
  *
  *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,2
  *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -61,50 +61,51 @@ export class mySettingsAxes {
 
 export class LowerColumnValue1Format {
   public colLabel: string = "grey";
+  public textLabel: boolean = false;
 
 }
 
 export class LowerColumnValue2Format {
   public colLabel: string = "grey";
-
+  public textLabel: boolean = false;
 }
 
 export class LowerColumnValue3Format {
   public colLabel: string = "grey";
-
+  public textLabel: boolean = false;
 }
 
 export class LowerColumnValue4Format {
   public colLabel: string = "grey";
-
+  public textLabel: boolean = false;
 }
 
 export class LowerColumnValue5Format {
   public colLabel: string = "grey";
-
+  public textLabel: boolean = false;
 }
 
 export class UpperColumnValue1Format {
   public colLabel: string = "#FF0000";
-
+  public textLabel: boolean = false;
 }
 
 export class UpperColumnValue2Format {
   public colLabel: string = "gray";
-
+  public textLabel: boolean = false;
 }
 
 export class UpperColumnValue3Format {
   public colLabel: string = "gray";
-
+  public textLabel: boolean = false;
 }
 
 export class UpperColumnValue4Format {
   public colLabel: string = "gray";
-
+  public textLabel: boolean = false;
 }
 
 export class UpperColumnValue5Format {
   public colLabel: string = "gray";
-
+  public textLabel: boolean = false;
 }

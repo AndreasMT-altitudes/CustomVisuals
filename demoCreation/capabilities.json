@@ -293,9 +293,8 @@
         },
         "textLabel": {
           "displayName": "Label",
-          "description": "Show label or not",
           "type": {
-            "bool":false
+            "bool": true
           }
         }
       }
@@ -314,6 +313,12 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -330,6 +335,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
           }
         }
       }
@@ -348,6 +359,12 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -364,6 +381,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
           }
         }
       }
@@ -382,6 +405,12 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -398,6 +427,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
           }
         }
       }
@@ -416,6 +451,12 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -433,6 +474,12 @@
               }
             }
           }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -449,6 +496,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
           }
         }
       }

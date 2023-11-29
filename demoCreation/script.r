@@ -37,12 +37,27 @@ if(!exists("category")) {
 }
 
 ###########Settings defualt values for formating options############
+num_cols <- 5
 
+
+for (i in 1:num_cols) {
+  label_name <- paste0("LowerColumnValue", i, "Format_textLabel")
+  if (!exists(label_name)) {
+    assign(label_name, FALSE, envir = .GlobalEnv)
+  }
+}
+
+for (i in 1:num_cols) {
+  label_name <- paste0("UpperColumnValue", i, "Format_textLabel")
+  if (!exists(label_name)) {
+    assign(label_name, FALSE, envir = .GlobalEnv)
+  }
+}
 
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
-num_cols <- 5
+
 
 category[] <- lapply(category[1], as.character)
 
@@ -152,6 +167,26 @@ df2 = df2 %>%
 
 ###############Plotting section################
 
+#Collecting wanted labels
+initialize_columns <- function(str) {
+  df = data.frame(Variable = c(1),
+                  Name = c(2))
+  for (i in 1:num_cols) {
+    col_name <- paste(str, "_col", i, sep = "")
+    if (str == "l") text_label = paste("LowerColumnValue", i, "Format_textLabel", sep = "") else text_label = paste("UpperColumnValue", i, "Format_textLabel", sep = "")
+    if (exists(col_name) && get(text_label) == TRUE) {
+     new_row = c(Variable = colnames(get(col_name)),
+                 Names = col_name)
+      df = rbind(df, new_row)
+    }
+  }
+  df = df[-1,]
+  return(df)
+}
+test1 = initialize_columns("l")
+test2 = initialize_columns("u")
+test = rbind(test1, test2)
+
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
   scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
@@ -160,7 +195,7 @@ g <- ggplot() +
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values"))
 
-  label_text = unique(data_to_use$type)
+  label_text = unique(test$Variable)
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -180,7 +215,7 @@ if(exists("small_multi")) {
 } else {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values"))
 
-  label_text = unique(data_to_use$type)
+  label_text = unique(test$Variable)
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -198,7 +233,7 @@ if(exists("small_multi")) {
 }
 
 
-g2 = ggplot() + geom_text(aes(x = 0.5, y = 0.5, label = "test"))
+g2 = ggplot() + geom_text(aes(x = 0.5, y = 0.5, label = LowerColumnValue1Format_textLabel))
 ####################################################
 
 ############# Create and save widget ###############
