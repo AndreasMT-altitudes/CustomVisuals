@@ -48,6 +48,27 @@ data_to_use <- data.frame(
   values2 = letters[1:12]
 )
 
+LowerColumnValue1Format_textLabel = TRUE
+LowerColumnValue2Format_textLabel = TRUE
+LowerColumnValue3Format_textLabel = TRUE
+
+LowerColumnValue2Format_labelColor = "#B24CC2"
+
+
+for (i in 1:num_cols) {
+  label_name <- paste0("LowerColumnValue", i, "Format_textLabel")
+  if (!exists(label_name)) {
+    assign(label_name, FALSE, envir = .GlobalEnv)
+  }
+}
+
+for (i in 1:num_cols) {
+  label_name <- paste0("UpperColumnValue", i, "Format_textLabel")
+  if (!exists(label_name)) {
+    assign(label_name, FALSE, envir = .GlobalEnv)
+  }
+}
+
 # Labels to use in the loop
 label_text <- unique(data_to_use$type)
 
@@ -56,7 +77,8 @@ initialize_columns <- function(str) {
                   Name = c(2))
   for (i in 1:num_cols) {
     col_name <- paste(str, "_col", i, sep = "")
-    if (exists(col_name)) {
+    text_label = paste(toupper(str),"owerColumnValue", i, "Format_textLabel", sep = "")
+    if (exists(col_name) && get(text_label) == TRUE) {
      new_row = c(Variable = colnames(get(col_name)),
                  Names = col_name)
       df = rbind(df, new_row)

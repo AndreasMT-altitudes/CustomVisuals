@@ -27,40 +27,80 @@ export declare class mySettingsAxes {
 export declare class LowerColumnValue1Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class LowerColumnValue2Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class LowerColumnValue3Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class LowerColumnValue4Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class LowerColumnValue5Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class UpperColumnValue1Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class UpperColumnValue2Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class UpperColumnValue3Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class UpperColumnValue4Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }
 export declare class UpperColumnValue5Format {
     colLabel: string;
     textLabel: boolean;
+    labelColor: string;
+    labelPlace: number;
+    fontSize: number;
+    fontFamily: string;
 }

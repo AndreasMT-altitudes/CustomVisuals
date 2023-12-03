@@ -62,50 +62,89 @@ export class mySettingsAxes {
 export class LowerColumnValue1Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class LowerColumnValue2Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class LowerColumnValue3Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class LowerColumnValue4Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class LowerColumnValue5Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class UpperColumnValue1Format {
   public colLabel: string = "#FF0000";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class UpperColumnValue2Format {
-  public colLabel: string = "gray";
+  public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class UpperColumnValue3Format {
-  public colLabel: string = "gray";
+  public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class UpperColumnValue4Format {
-  public colLabel: string = "gray";
+  public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }
 
 export class UpperColumnValue5Format {
-  public colLabel: string = "gray";
+  public colLabel: string = "grey";
   public textLabel: boolean = false;
+  public labelColor: string = "grey"
+  public labelPlace: number = 1;
+  public fontSize: number = 12;
+  public fontFamily: string = "Arial";
 }

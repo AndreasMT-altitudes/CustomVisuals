@@ -39,7 +39,7 @@ if(!exists("category")) {
 ###########Settings defualt values for formating options############
 num_cols <- 5
 
-
+##Setting Labels to FALSE in the enviroment, if nothing is supplied
 for (i in 1:num_cols) {
   label_name <- paste0("LowerColumnValue", i, "Format_textLabel")
   if (!exists(label_name)) {
@@ -51,6 +51,21 @@ for (i in 1:num_cols) {
   label_name <- paste0("UpperColumnValue", i, "Format_textLabel")
   if (!exists(label_name)) {
     assign(label_name, FALSE, envir = .GlobalEnv)
+  }
+}
+
+##Setting label colors to default values if nothing else is supplied
+for (i in 1:num_cols) {
+  label_name <- paste0("LowerColumnValue", i, "Format_labelColor")
+  if (!exists(label_name)) {
+    assign(label_name, "black", envir = .GlobalEnv)
+  }
+}
+
+for (i in 1:num_cols) {
+  label_name <- paste0("UpperColumnValue", i, "Format_labelColor")
+  if (!exists(label_name)) {
+    assign(label_name, "black", envir = .GlobalEnv)
   }
 }
 
@@ -170,22 +185,28 @@ df2 = df2 %>%
 #Collecting wanted labels
 initialize_columns <- function(str) {
   df = data.frame(Variable = c(1),
-                  Name = c(2))
+                  Name = c(2),
+                  color = "#A22345",
+                  font_size = 12,
+                  font_family = "Arial")
   for (i in 1:num_cols) {
     col_name <- paste(str, "_col", i, sep = "")
     if (str == "l") text_label = paste("LowerColumnValue", i, "Format_textLabel", sep = "") else text_label = paste("UpperColumnValue", i, "Format_textLabel", sep = "")
     if (exists(col_name) && get(text_label) == TRUE) {
      new_row = c(Variable = colnames(get(col_name)),
-                 Names = col_name)
+                 Names = col_name,
+                 color = get(paste(str_split(text_label, "_")[[1]][1], "_labelColor", sep = "")),
+                 font_size = get(paste(str_split(text_label, "_")[[1]][1], "_fontSize", sep = "")),
+                 font_family = get(paste(str_split(text_label, "_")[[1]][1], "_fontFamily", sep = "")))
       df = rbind(df, new_row)
     }
   }
   df = df[-1,]
   return(df)
 }
-test1 = initialize_columns("l")
-test2 = initialize_columns("u")
-test = rbind(test1, test2)
+used_labels1 = initialize_columns("l")
+used_labels2 = initialize_columns("u")
+used_labels = rbind(used_labels1, used_labels2)
 
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
@@ -195,7 +216,7 @@ g <- ggplot() +
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values"))
 
-  label_text = unique(test$Variable)
+  label_text = unique(used_labels$Variable)
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -210,12 +231,14 @@ if(exists("small_multi")) {
   for (label in label_text) {
   g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
                      aes(x = newx_axis, y = sum_values, label = values2),
+                     color = used_labels$color[which(label_text == label)],
+                     size = used_labels$color[which(label_text == label)],
                      inherit.aes = FALSE)  # Adjust the nudge_y as needed
 }
 } else {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values"))
 
-  label_text = unique(test$Variable)
+  label_text = unique(used_labels$Variable)
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -228,6 +251,8 @@ if(exists("small_multi")) {
   for (label in label_text) {
   g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
                      aes(x = newx_axis, y = sum_values, label = values2),
+                     color = used_labels$color[which(label_text == label)],
+                     size = used_labels$color[which(label_text == label)],
                      inherit.aes = FALSE)  # Adjust the nudge_y as needed
 }
 }

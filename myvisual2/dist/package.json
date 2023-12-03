@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "author": {"name":"test","email":"test"},
+    "resources": [
+        {
+            "resourceId": "rId0",
+            "sourceType": 5,
+            "file": "resources/myvisual25FC9915F62EB40ED9637BBBE4A47E736.pbiviz.json"
+        }
+    ],
+    "visual": {"name":"myvisual2","displayName":"my_visual2","guid":"myvisual25FC9915F62EB40ED9637BBBE4A47E736","visualClassName":"Visual","version":"1.0.0","description":"ttest","supportUrl":"test","gitHubUrl":"tset"},
+    "metadata": {
+        "pbivizjson": {
+            "resourceId": "rId0"
+        }
+    }  
+}

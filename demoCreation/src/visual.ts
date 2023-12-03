@@ -49,7 +49,7 @@ enum VisualUpdateType {
 // below is a snippet of a definition for an object which will contain the property values
 // selected by the users
 /*interface VisualSettings {
-    lineColor: string;222s222
+    lineColor: string;222s222222
 }*/
 
 // to allow this scenario you should first the following JSON definition to the capabilities.json file
