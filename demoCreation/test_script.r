@@ -54,6 +54,11 @@ LowerColumnValue3Format_textLabel = TRUE
 
 LowerColumnValue2Format_labelColor = "#B24CC2"
 
+LowerColumnValue1Format_labelPlace = "middle"
+LowerColumnValue2Format_labelPlace = "on top"
+
+
+
 
 for (i in 1:num_cols) {
   label_name <- paste0("LowerColumnValue", i, "Format_textLabel")
@@ -90,3 +95,44 @@ initialize_columns <- function(str) {
 test1 = initialize_columns("l")
 test2 = initialize_columns("u")
 test = rbind(test1, test2); print(test)
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(purrr)
+
+# Sample data
+df1 <- data.frame(ID = c(1, 2, 3),
+                  Value1 = c('A', 'B', 'C'))
+
+df2 <- data.frame(ID = c(2, 3, 1, 4),
+                  Value2 = c('X', 'Y', 'Z', 'W'))
+
+# Merge the dataframes based on the 'ID' column
+merged_df <- merge(df2, df1, by = 'ID', all.x = TRUE)
+
+# Create a new column in df2 based on the conditions
+df2$new_column <- ifelse(!is.na(merged_df$Value1), merged_df$Value1, NA)
+
+# Print the result
+print(df2)
+
+df
+used_labels
+
+tester = merge(x=df,y=used_labels, 
+             by.x= c("type"), by.y = c("Variable"), all.x=TRUE)
+
+
+tester2 = tester %>%
+  mutate(sum_values2 = if_else(placement == "middle",
+                                                    sum_values-values*0.5,
+                                                    if_else(placement == "on top",
+                                                            sum_values-max_value*-0.02,
+                                                            if_else(placement == "bottom",
+                                                                   (sum_values-values)-max_value*-0.02,
+                                                                    sum_values-max_value*0.02))))
+
+
+g + geom_text(data = tester2,  aes(x = newx_axis, y = sum_values2), label = tester2$values2, inherit.aes = FALSE)
+

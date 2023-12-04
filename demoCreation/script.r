@@ -69,6 +69,35 @@ for (i in 1:num_cols) {
   }
 }
 
+##Setting label placement to default values if nothing else is supplied
+for (i in 1:num_cols) {
+  label_name <- paste0("LowerColumnValue", i, "Format_labelPlace")
+  if (!exists(label_name)) {
+    assign(label_name, "none", envir = .GlobalEnv)
+  }
+}
+
+for (i in 1:num_cols) {
+  label_name <- paste0("UpperColumnValue", i, "Format_labelPlace")
+  if (!exists(label_name)) {
+    assign(label_name, "none", envir = .GlobalEnv)
+  }
+}
+
+##Setting label font size to default values if nothing else is supplied
+for (i in 1:num_cols) {
+  label_name <- paste0("LowerColumnValue", i, "Format_fontSize")
+  if (!exists(label_name)) {
+    assign(label_name, 5, envir = .GlobalEnv)
+  }
+}
+
+for (i in 1:num_cols) {
+  label_name <- paste0("UpperColumnValue", i, "Format_fontSize")
+  if (!exists(label_name)) {
+    assign(label_name, 5, envir = .GlobalEnv)
+  }
+}
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
@@ -101,7 +130,7 @@ Values2 <- initialize_data_frame(Values2, "u")
 
 
 #######Color Specefications
-default_labels <- c("blue", "#ADD8E6", "#1BD8E6", "red", "orange", "green", "lightgreen", "chartreuse4", "lightyellow", "purple")
+default_labels <- c("#73b761", "#4a588a", "#ecc846", "#cd4c46", "#71afe2", "#8d6fd1", "#ee9e64", "#95dabb", "#8fc581", "#6e79a1")
 colors = c()
 colors2 = c()
 
@@ -141,7 +170,7 @@ assign_numeric_order <- function(data, type_column) {
 # Function to create summary data frame
 create_summary_df <- function(data) {
   if (exists("small_multi") && length(data) > 2) {
-    df = Values %>%
+    df = data %>%
       group_by(x_axis, small) %>%
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
@@ -163,6 +192,7 @@ create_summary_df <- function(data) {
       group_by(x_axis) %>%
       arrange(x_axis, numeric_order) %>%
       mutate(sum_values = accumulate(values, ~.x + .y)[numeric_order]) %>%
+      mutate(sum_values2 = )
       ungroup()
   } else {
     df = data.frame()  # or NULL, depending on your use case
@@ -188,7 +218,7 @@ initialize_columns <- function(str) {
                   Name = c(2),
                   color = "#A22345",
                   font_size = 12,
-                  font_family = "Arial")
+                  placement = 1)
   for (i in 1:num_cols) {
     col_name <- paste(str, "_col", i, sep = "")
     if (str == "l") text_label = paste("LowerColumnValue", i, "Format_textLabel", sep = "") else text_label = paste("UpperColumnValue", i, "Format_textLabel", sep = "")
@@ -197,7 +227,7 @@ initialize_columns <- function(str) {
                  Names = col_name,
                  color = get(paste(str_split(text_label, "_")[[1]][1], "_labelColor", sep = "")),
                  font_size = get(paste(str_split(text_label, "_")[[1]][1], "_fontSize", sep = "")),
-                 font_family = get(paste(str_split(text_label, "_")[[1]][1], "_fontFamily", sep = "")))
+                 placement = get(paste(str_split(text_label, "_")[[1]][1], "_labelPlace", sep = "")))
       df = rbind(df, new_row)
     }
   }
@@ -208,6 +238,8 @@ used_labels1 = initialize_columns("l")
 used_labels2 = initialize_columns("u")
 used_labels = rbind(used_labels1, used_labels2)
 
+used_labels$font_size = as.numeric(used_labels$font_size)
+
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
   scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
@@ -217,6 +249,8 @@ if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values"))
 
   label_text = unique(used_labels$Variable)
+  max_value = max(data_to_use$values)
+
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -229,16 +263,25 @@ if(exists("small_multi")) {
              theme(strip.background =element_rect(fill="#FFFFFF"))
 
   for (label in label_text) {
-  g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
-                     aes(x = newx_axis, y = sum_values, label = values2),
-                     color = used_labels$color[which(label_text == label)],
-                     size = used_labels$color[which(label_text == label)],
-                     inherit.aes = FALSE)  # Adjust the nudge_y as needed
+    placement = used_labels$placement[which(label_text == "Total.Revenue")]
+  g <- g + geom_text(data = data_to_use[data_to_use$type == "Total.Revenue", ],
+                     aes(x = newx_axis, y = if_else(rep(placement, nrow(data_to_use[data_to_use$type == "Total.Revenue", ][1])) == "middle",
+                                                    sum_values-values*0.5,
+                                                    if_else(rep(placement, nrow(data_to_use[data_to_use$type == "Total.Revenue", ][1])) == "on top",
+                                                            sum_values-max_value*-0.02,
+                                                            if_else(rep(placement, nrow(data_to_use[data_to_use$type == "Total.Revenue", ][1])) == "bottom",
+                                                                   (sum_values-values)-max_value*-0.02,
+                                                                    sum_values-max_value*0.02))))
+                                                            , label = values2,
+                     color = used_labels$color[which(label_text == "Total.Revenue")],
+                     size = used_labels$font_size[which(label_text == "Total.Revenue")])  # Adjust the nudge_y as needed
 }
 } else {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values"))
 
   label_text = unique(used_labels$Variable)
+  max_value = max(data_to_use$values)
+
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
@@ -249,11 +292,19 @@ if(exists("small_multi")) {
              width = 0.35) 
  
   for (label in label_text) {
+    placement = used_labels$placement[which(label_text == label)]
   g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
-                     aes(x = newx_axis, y = sum_values, label = values2),
+                     aes(x = newx_axis, y = if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "middle",
+                                                    sum_values-values*0.5,
+                                                    if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "on top",
+                                                            sum_values-max_value*-0.02,
+                                                            if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "bottom",
+                                                                   (sum_values-values)-max_value*-0.02,
+                                                                    sum_values-max_value*0.02))))
+                                                            , label = values2,
                      color = used_labels$color[which(label_text == label)],
-                     size = used_labels$color[which(label_text == label)],
-                     inherit.aes = FALSE)  # Adjust the nudge_y as needed
+                     size = used_labels$font_size[which(label_text == label)],
+                     inherit.aes = FALSE)
 }
 }
 
