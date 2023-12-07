@@ -7,7 +7,8 @@ df3 = read_csv("C:/Users/AndreasMT/Downloads/10000-Sales-Records.zip")
 
 category = data.frame(df3$Region)
 
-l_col1 = data.frame(df3[12])
+l_col1 = data.frame(df3[11])
+u_col2 = data.frame(df3[12])
 l_col2 = data.frame(df3[13])
 l_col3 = data.frame(df3[14])
 
@@ -134,5 +135,21 @@ tester2 = tester %>%
                                                                     sum_values-max_value*0.02))))
 
 
-g + geom_text(data = tester2,  aes(x = newx_axis, y = sum_values2), label = tester2$values2, inherit.aes = FALSE)
+g + geom_text(data = tester2,  aes(x = newx_axis, y = sum_values2), label = tester2$values2, color = tester2$color, inherit.aes = FALSE)
 
+
+ for (label in label_text) {
+    placement = used_labels$placement[which(label_text == label)]
+  g <- g + geom_text(data = data_to_use[data_to_use$type == label, ],
+                     aes(x = newx_axis, y = if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "middle",
+                                                    sum_values-values*0.5,
+                                                    if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "on top",
+                                                            sum_values-max_value*-0.02,
+                                                            if_else(rep(placement, nrow(data_to_use[data_to_use$type == label, ][1])) == "bottom",
+                                                                   (sum_values-values)-max_value*-0.02,
+                                                                    sum_values-max_value*0.02))))
+                                                            , label = values2,
+                     color = used_labels$color[which(label_text == label)],
+                     size = used_labels$font_size[which(label_text == label)],
+                     inherit.aes = FALSE)
+}
