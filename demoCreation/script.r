@@ -138,9 +138,17 @@ colors <- lapply(1:num_cols, function(i) {
   label_name <- paste("LowerColumnValue", i, "Format_colLabel", sep = "")
   col_name <- paste("l_col", i, sep = "")
   if (!exists(label_name) && exists(col_name)) {
-    return(default_labels[i])
+    col_vec = c()
+    name = colnames(get(col_name))
+    col_vec[name] = default_labels[i]
+    value = col_vec[name]
+    return(col_vec)
   } else if (exists(label_name) && exists(col_name)) {
-    return(get(label_name))
+    col_vec = c()
+    name = colnames(get(col_name))
+    col_vec[name] = get(label_name)
+    value = col_vec[name]
+    return(value)
   }
 })
 
@@ -149,9 +157,17 @@ colors2 <- lapply(1:num_cols, function(i) {
   col_name <- paste("u_col", i, sep = "")
   label <- 5 + i
   if (!exists(label_name) && exists(col_name)) {
-    return(default_labels[label])
+    col_vec = c()
+    name = colnames(get(col_name))
+    col_vec[name] = default_labels[label]
+    value = col_vec[name]
+    return(col_vec)
   } else if (exists(label_name) && exists(col_name)) {
-    return(get(label_name))
+    col_vec = c()
+    name = colnames(get(col_name))
+    col_vec[name] = get(label_name)
+    value = col_vec[name]
+    return(value)
   }
 })
 

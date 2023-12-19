@@ -50,13 +50,14 @@ data_to_use <- data.frame(
 )
 
 LowerColumnValue1Format_textLabel = TRUE
-LowerColumnValue2Format_textLabel = TRUE
+LowerColumnValue2Format_textLabel = FALSE
 LowerColumnValue3Format_textLabel = TRUE
 
 LowerColumnValue2Format_labelColor = "#B24CC2"
 
-LowerColumnValue1Format_labelPlace = "middle"
+LowerColumnValue1Format_labelPlace = "none"
 LowerColumnValue2Format_labelPlace = "on top"
+LowerColumnValue3Format_labelPlace = "middle"
 
 
 
@@ -153,3 +154,62 @@ g + geom_text(data = tester2,  aes(x = newx_axis, y = sum_values2), label = test
                      size = used_labels$font_size[which(label_text == label)],
                      inherit.aes = FALSE)
 }
+
+df01 <- data.frame(
+  category = rep(c("D", "B", "C"), each = 5),
+  value = rnorm(15)
+)
+
+# Define custom colors for each category
+custom_colors <- c("D" = "red", "B" = "green", "C" = "blue")
+
+# Create a ggplot with custom colors
+ggplot(df01, aes(x = category, y = value, fill = category)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = custom_colors) +
+  labs(title = "Custom Color Assignment") +
+  theme_minimal()
+
+# Create a vector
+my_vector <- c()
+
+# Save a text string
+my_text <- "example_entry"
+
+# Use the text string as the name of an entry in the vector
+my_vector[my_text] <- 42
+
+# Access the entry using the saved text string
+value <- my_vector[my_text]
+
+# Print the value
+print(value)
+
+num_cols <- 5
+
+# Vector of default colors
+default_labels <- c("#73b761", "#4a588a", "#ecc846", "#cd4c46", "#71afe2")
+
+# Create an empty list to store colors
+colors <- list()
+
+# Loop through columns
+for (i in 1:num_cols) {
+  label_name <- paste("LowerColumnValue", i, "Format_colLabel", sep = "")
+  col_name <- paste("l_col", i, sep = "")
+  
+  # Check if label_name and col_name exist
+  if (exists(label_name) && exists(col_name)) {
+    col_vec <- c()
+    name <- colnames(get(col_name))
+    col_vec[name] <- get(label_name)
+    colors[[name]] <- col_vec
+  } else {
+    # Use default color if conditions are not met
+    name <- colnames(get(col_name))
+    colors[[name]] <- default_labels[i]
+  }
+}
+
+# Print the resulting colors
+print(colors)
