@@ -31,6 +31,7 @@ import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
 export class VisualSettings extends DataViewObjectsParser {
       public rcv_script: rcv_scriptSettings = new rcv_scriptSettings();
+      public LowerColumnValue1Format: LowerColumnValue1Format = new LowerColumnValue1Format();
       }
 
     export class rcv_scriptSettings {
@@ -38,3 +39,10 @@ export class VisualSettings extends DataViewObjectsParser {
       public provider     // undefined
       public source     }
 
+      export class LowerColumnValue1Format {
+        public colLabel: string = "grey";
+        public textLabel: boolean = false;
+        public labelColor: string = "grey"
+        public labelPlace: string = "none";
+        public fontSize: number = 12;
+      }

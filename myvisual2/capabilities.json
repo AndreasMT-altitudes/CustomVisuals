@@ -56,6 +56,70 @@
           }
         }
       }
+    },
+    "LowerColumnValue1Format": {
+      "displayName": "Lower column value 1",
+      "description": "Lower column value 1 settings",
+      "properties": {
+        "colLabel": {
+          "displayName": "color",
+          "description": "color of bar",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "textLabel": {
+          "displayName": "Label",
+          "type": {
+            "bool": true
+          }
+        }, 
+        "labelColor": {
+          "displayName": "Label color",
+          "description": "color of label",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "labelPlace": {
+          "displayName": "Label placement",
+          "description": "Label placement",
+          "type": {
+            "enumeration": [{
+                "displayName": "Top",
+                "value": "top"
+              },
+              {
+                "displayName": "On top",
+                "value": "on top"
+              },
+              {
+                "displayName": "Middle",
+                "value": "middle"
+              },
+              {
+                "displayName": "Bottom",
+                "value": "bottom"
+              }
+            ]
+          }
+        },
+        "fontSize": {
+        "displayName": "Label Font Size",
+        "description": "Select font size",
+        "type": {
+          "numeric": true
+        }
+        }
+      }
     }
   },
   "suppressDefaultTitle": true

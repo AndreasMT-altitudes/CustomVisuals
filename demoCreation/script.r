@@ -39,7 +39,7 @@ if(!exists("category")) {
 ###########Settings defualt values for formating options############
 num_cols <- 5
 
-##Setting Labels to FALSE in the enviroment, if nothing is supplied
+##Setting Labels to True in the enviroment, if nothing is supplied
 for (i in 1:num_cols) {
   label_name <- paste0("LowerColumnValue", i, "Format_textLabel")
   if (!exists(label_name)) {

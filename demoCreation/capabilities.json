@@ -345,7 +345,7 @@
       "description": "Lower column value 2 settings",
       "properties": {
         "colLabel": {
-          "displayName": "Label color",
+          "displayName": "color",
           "description": "color of bar",
           "type": {
             "fill": {

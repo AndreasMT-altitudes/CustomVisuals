@@ -3,36 +3,32 @@ source('./r_files/flatten_HTML.r')
 ############### Library Declarations ###############
 libraryRequireInstall("ggplot2");
 libraryRequireInstall("plotly");
-libraryRequireInstall("shiny")
+libraryRequireInstall("tidyverse")
 ####################################################
-ui <- fluidPage(
-  sliderInput(inputId = "user_input",
-              label = "User Input", 
-              value = 10,
-              min = 0, max = 100,
-              step = 5,
-              # Added animation
-              animate = animationOptions(
-                interval = 1000,
-                loop = TRUE,
-                playButton = NULL,
-                pauseButton = NULL
-              )
-  )
-  
-)
+label_name = "LowerColumnValue1Format_textLabel"
+if(!exists(label_name))
+    assign(label_name, FALSE, envir = .GlobalEnv)
 
-server <- function(input, output, session) {}
+df = Values %>% 
+  group_by(Region) %>% 
+  summarise_all(list(c(sum = "sum")))
 
-g2 = shinyApp(ui, server)
+df2 = df %>%
+  mutate(text = as.character(`Total Revenue`)) %>%
+  mutate(color = c("red", "blue", "black", "brown", "yellow", "purple", "green")) %>%
+  mutate(size = c(10, 5, 9,8,11,13,4))
+
+
+if(get("LowerColumnValue1Format_textLabel") == TRUE) {
+g = ggplot(df, aes(x = Region, y = `Total Revenue`)) + geom_col() + geom_text(data  =df2, aes(x = Region, y =`Total Revenue`), label = df2$text, color = df2$color, size = df2$size, inherit.aes = FALSE)
+} else {
+
+  g = ggplot(df, aes(x = Region, y = `Total Revenue`)) + geom_col()
+}
 
 ################### Actual code ####################
-g = qplot(`Petal.Length`, data = iris, fill = `Species`, main = Sys.time());
-####################################################
-
-############# Create and save widget ###############
-
-internalSaveWidget(g2, 'out.html');
+p = ggplotly(g, tooltip = c( "text"));
+internalSaveWidget(p, 'out.html');
 ####################################################
 
 ################ Reduce paddings ###################
