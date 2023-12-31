@@ -5,6 +5,8 @@ suppressWarnings(suppressMessages(libraryRequireInstall("ggplot2")));
 suppressWarnings(suppressMessages(libraryRequireInstall("plotly")))
 suppressWarnings(suppressMessages(libraryRequireInstall("tidyverse")))
 suppressWarnings(suppressMessages(libraryRequireInstall("scales")))
+suppressWarnings(suppressMessages(libraryRequireInstall("tsibble")))
+suppressWarnings(suppressMessages(libraryRequireInstall("lubridate")))
 ####################################################
 
 ################### Actual code ####################
@@ -54,20 +56,6 @@ for (i in 1:num_cols) {
   }
 }
 
-##Setting label colors to default values if nothing else is supplied
-for (i in 1:num_cols) {
-  label_name <- paste0("LowerColumnValue", i, "Format_labelColor")
-  if (!exists(label_name)) {
-    assign(label_name, "black", envir = .GlobalEnv)
-  }
-}
-
-for (i in 1:num_cols) {
-  label_name <- paste0("UpperColumnValue", i, "Format_labelColor")
-  if (!exists(label_name)) {
-    assign(label_name, "black", envir = .GlobalEnv)
-  }
-}
 
 ##Setting label placement to default values if nothing else is supplied
 for (i in 1:num_cols) {
@@ -84,20 +72,20 @@ for (i in 1:num_cols) {
   }
 }
 
-##Setting label font size to default values if nothing else is supplied
-for (i in 1:num_cols) {
-  label_name <- paste0("LowerColumnValue", i, "Format_fontSize")
-  if (!exists(label_name)) {
-    assign(label_name, 12/2.8, envir = .GlobalEnv)
-  }
+if (!exists("mySettingsAxes_textSize")) {
+  mySettingsAxes_textSize = 10/2.8
+} else {
+  mySettingsAxes_textSize = mySettingsAxes_textSize/2.8
 }
 
-for (i in 1:num_cols) {
-  label_name <- paste0("UpperColumnValue", i, "Format_fontSize")
-  if (!exists(label_name)) {
-    assign(label_name, 12/2.8, envir = .GlobalEnv)
-  }
+if (!exists("mySettingsAxes_colLabel")) {
+  mySettingsAxes_colLabel = "black"
 }
+if (!exists("mySettingsAxes_datoAxe")) {
+  mySettingsAxes_datoAxe = FALSE
+}
+
+update_geom_defaults("text", list(size = mySettingsAxes_textSize, color = mySettingsAxes_colLabel)) ##sæt nu genereal size her
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
@@ -231,8 +219,6 @@ df2 = df2 %>%
 initialize_columns <- function(str) {
   df = data.frame(Variable = c(1),
                   Name = c(2),
-                  color = "#A22345",
-                  font_size = 12,
                   placement = 1)
   for (i in 1:num_cols) {
     col_name <- paste(str, "_col", i, sep = "")
@@ -240,8 +226,6 @@ initialize_columns <- function(str) {
     if (exists(col_name) && get(text_label) == TRUE) {
      new_row = c(Variable = colnames(get(col_name)),
                  Names = col_name,
-                 color = get(paste(str_split(text_label, "_")[[1]][1], "_labelColor", sep = "")),
-                 font_size = get(paste(str_split(text_label, "_")[[1]][1], "_fontSize", sep = "")),
                  placement = get(paste(str_split(text_label, "_")[[1]][1], "_labelPlace", sep = "")))
       df = rbind(df, new_row)
     }
@@ -253,8 +237,58 @@ used_labels1 = initialize_columns("l")
 used_labels2 = initialize_columns("u")
 used_labels = rbind(used_labels1, used_labels2)
 
-used_labels$font_size = as.numeric(used_labels$font_size)
-used_labels$font_size = used_labels$font_size/2.8
+df$date_axis = df$newx_axis
+df2$date_axis = df2$newx_axis
+
+if(any(grepl("^(\\d{4}[-\\s/][a-zA-Z]{3,}|[a-zA-Z]{3,}[-\\s/]\\d{4})$", df$x_axis, perl = TRUE))) {
+
+convert_to_date <- function(char_vec) {
+if(any(grepl("[-]", char_vec))) {
+  test = paste0(char_vec, "-01")
+} else if (any(grepl("[/]", char_vec))) {
+  test = paste0(char_vec, "/01")
+} else {
+  test = paste0(char_vec, " 01")
+}
+  
+tryCatch(
+  {
+    return(parse_date_time(test, 
+        orders = c("%Y %b %d", "%b %Y %d",
+                       "%Y %B %d", "%B %Y %d",
+                       "%Y-%b-%d", "%b-%Y-%d",
+                       "%Y-%B-%d", "%B-%Y-%d",
+                       "%Y/%b/%d", "%b-%Y/%d",
+                       "%Y/%B/%d", "%B-%Y/%d")))                
+},
+error = function(err) {
+    # If an error occurs with the English date format, try Danish date format
+    danish_date <- tryCatch(
+      {
+        return(parse_date_time(test, 
+        orders = c("%Y %b %d", "%b %Y %d",
+                       "%Y %B %d", "%B %Y %d",
+                       "%Y-%b-%d", "%b-%Y-%d",
+                       "%Y-%B-%d", "%B-%Y-%d",
+                       "%Y/%b/%d", "%b-%Y/%d",
+                       "%Y/%B/%d", "%B-%Y/%d"), locale = "da"))             
+      },
+      error = function(danish_err) {
+        cat("Error with Danish date format. Both attempts failed.\n")
+        return(NULL)  # Handle the case where both attempts fail
+      }
+    )
+  }
+)
+}
+
+if(length(df) > 1){
+df$date_axis = convert_to_date(df$x_axis)
+}
+if(length(df2) > 1){
+df2$date_axis = convert_to_date(df2$x_axis)
+}
+}
 
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
@@ -262,12 +296,11 @@ g <- ggplot() +
   labs(x = "", y = "")
 
 if(exists("small_multi")) {
-  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis"))
+  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis", "date_axis"))
 
   max_value = max(data_to_use$values)
   combined = merge(x=data_to_use,y=used_labels, 
              by.x= c("type"), by.y = c("Variable"), all.x=TRUE)
-
 
 combined_df = combined %>%
   mutate(sum_values2 = if_else(placement == "middle",
@@ -276,33 +309,31 @@ combined_df = combined %>%
                                        sum_values-max_value*-0.02,
                                        if_else(placement == "bottom",
                                                (sum_values-values)-max_value*-0.02,
-                                               sum_values-max_value*0.02))))
+                                               sum_values-max_value*0.04))))
+
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
-             aes(x = newx_axis, y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = newx_axis, y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
              width = 0.35)+
              facet_grid(~small) + ##### Tror alt til small multi format kan lægges her
              theme(strip.background =element_rect(fill="#FFFFFF"))+
     geom_text(data = combined_df,
-              aes(x = newx_axis,
+              aes(x = reorder(newx_axis, date_axis),
                   y = sum_values2),
               label = combined_df$values2,
-              color = combined_df$color,
-              size = combined_df$font_size,
               inherit.aes = FALSE)
 
 } else {
-  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values", "x_axis"))
+  data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values", "x_axis", "date_axis"))
 
   max_value = max(data_to_use$values)
 
   combined = merge(x=data_to_use,y=used_labels, 
              by.x= c("type"), by.y = c("Variable"), all.x=TRUE)
-
 
 combined_df = combined %>%
   mutate(sum_values2 = if_else(placement == "middle",
@@ -311,29 +342,24 @@ combined_df = combined %>%
                                        sum_values-max_value*-0.02,
                                        if_else(placement == "bottom",
                                                (sum_values-values)-max_value*-0.02,
-                                               sum_values-max_value*0.02))))
-
+                                               sum_values-max_value*0.04))))
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
-             aes(x = newx_axis, y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = newx_axis, y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
              width = 0.35) +
     geom_text(data = combined_df,
-              aes(x = newx_axis,
+              aes(x = reorder(newx_axis, date_axis),
                   y = sum_values2),
               label = combined_df$values2,
-              color = combined_df$color,
-              size = combined_df$font_size,
               inherit.aes = FALSE)
  
 }
 
-
-g2 = ggplot() + geom_text(aes(x = 0.5, y = 0.5, label = LowerColumnValue1Format_textLabel))
-####################################################
+#################################################### 
 
 ############# Create and save widget ###############
 p = ggplotly(g, tooltip =c("values"))%>%
@@ -348,7 +374,7 @@ p = ggplotly(g, tooltip =c("values"))%>%
   ) %>% 
   config(displayModeBar = F);
 
-p2 = ggplotly(g2)
+
 internalSaveWidget(p, 'out.html');
 ####################################################
 

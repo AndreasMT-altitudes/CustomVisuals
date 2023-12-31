@@ -221,6 +221,12 @@
             "numeric": true
           }
         },
+        "datoAxe": {
+          "displayName": "Date x_axis",
+          "type": {
+            "bool": true
+          }
+        },
         "sizeTicks": {
           "displayName": "Size ticks",
           "description": "Size ticks",
@@ -296,17 +302,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -330,13 +325,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -360,17 +348,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -394,13 +371,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -424,17 +394,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -458,13 +417,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -488,17 +440,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -522,13 +463,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -552,17 +486,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -586,13 +509,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -616,17 +532,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -650,13 +555,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -680,17 +578,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -714,13 +601,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -744,17 +624,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -778,13 +647,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -808,17 +670,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -842,13 +693,6 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
-        }
         }
       }
     },
@@ -872,17 +716,6 @@
           "type": {
             "bool": true
           }
-        }, 
-        "labelColor": {
-          "displayName": "Label color",
-          "description": "color of label",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
         },
         "labelPlace": {
           "displayName": "Label placement",
@@ -906,13 +739,22 @@
               }
             ]
           }
-        },
-        "fontSize": {
-        "displayName": "Label Font Size",
-        "description": "Select font size",
-        "type": {
-          "numeric": true
         }
+      }
+    },
+    "rcv_script": {
+      "properties": {
+        "provider": {
+          "type": {
+            "text": true
+          }
+        },
+        "source": {
+          "type": {
+            "scripting": {
+              "source": true
+            }
+          }
         }
       }
     }

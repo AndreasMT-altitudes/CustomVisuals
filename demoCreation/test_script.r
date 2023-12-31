@@ -2,10 +2,14 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
 library(scales)
+library(tsibble)
 
-df3 = read_csv("C:/Users/AndreasMT/Downloads/10000-Sales-Records.zip")
+df3 = read_csv("C:/Users/andre/Downloads/10000 Sales Records.csv")
 
-category = data.frame(df3$Region)
+category = data.frame(yearmonth(as.Date(df3$`Order Date`, tryFormats = c("%Y-%m-%d", "%m/%d/%Y"))))
+
+category = category %>%
+  filter(yearmonth.as.Date.df3..Order.Date...tryFormats...c...Y..m..d... %in% yearmonth(c("2016 Jan","2016 Feb","2016 Mar","2016 Apr","2016 May","2016 Jun","2016 Jul","2016 Aug","2016 Sep","2016 Oct","2016 Nov","2016 Dec")))
 
 l_col1 = data.frame(df3[11])
 u_col2 = data.frame(df3[12])
@@ -13,41 +17,6 @@ l_col2 = data.frame(df3[13])
 l_col3 = data.frame(df3[14])
 
 small_multi =data.frame(df3[4])
-
-Values <- data.frame(category)
-
-num_l_cols = 5
-
-for (i in 1:num_l_cols) {
-  l_col_name <- paste("l_col", i, sep="")
-  if (exists("category") && exists(l_col_name)) {
-    Values[[l_col_name]] <- get(l_col_name)
-    names(Values[[l_col_name]]) = names(get(l_col_name))
-  }
-}
-
-head(Values, 5)
-
-u_col1 = data.frame(df3[11])
-
-rm(u_col3)
-
-
-df = df %>%
-  mutate(type2 = "type1")
-
-df2 = df2 %>%
-  mutate(type2 = "type2")
-
-
-# Example data
-set.seed(123)
-data_to_use <- data.frame(
-  type = rep(c("A", "B", "C"), each = 4),
-  newx_axis = rep(1:4, times = 3),
-  sum_values = rnorm(12),
-  values2 = letters[1:12]
-)
 
 LowerColumnValue1Format_textLabel = TRUE
 LowerColumnValue2Format_textLabel = FALSE
@@ -213,3 +182,142 @@ for (i in 1:num_cols) {
 
 # Print the resulting colors
 print(colors)
+
+df
+typeof(df$newx_axis)
+as.Date(df$newx_axis, tryFormats = "%Y %b")
+
+as.yearmon
+
+
+library(lubridate)
+
+convertTextToDate <- function(date_strings, date_formats) {
+  result_dates <- vector("list", length(date_strings))
+  
+  for (i in seq_along(date_strings)) {
+    current_date <- date_strings[i]
+    
+    parsed_date <- NA
+    
+    for (format in date_formats) {
+      parsed_date <- tryCatch(
+        as.Date(current_date, format),
+        error = function(e) NA
+      )
+      
+      if (!is.na(parsed_date)) {
+        break  # Break the loop if a successful conversion is made
+      }
+    }
+    
+    result_dates[[i]] <- parsed_date
+  }
+  
+  return(as.Date(unlist(result_dates)))
+}
+lct <- Sys.getlocale("LC_TIME"); Sys.setlocale("LC_TIME", "C")
+# Example usage:
+date_strings <- c("2023 Jan", "Feb 2023", "2023 January", "February 2023", "2023-Jan", "Feb-2023", "2023-February", "February-2023")
+date_formats <- c("%Y %b", "%b %Y", "%Y %B", "%B %Y", "%Y-%b", "%b-%Y", "%Y-%B", "%B-%Y")
+
+result_dates <- convertTextToDate(date_strings, date_formats)
+
+# Print the result
+print(result_dates)
+Sys.setlocale("LC_TIME", "english")
+Sys.setlocale("LC_TIME", "danish")
+
+# Install and load the zoo package if not already installed
+if (!requireNamespace("zoo", quietly = TRUE)) {
+  install.packages("zoo")
+}
+library(zoo)
+
+convert_to_date <- function(char_vector) {
+  # Attempt different date formats
+  formats <- c("%Y %b", "%b %Y", "%Y %B", "%B %Y")
+  date_vector <- NULL
+  
+  for (format in formats) {
+    date_vector <- as.yearmon(char_vector, format)
+    if (!any(is.na(date_vector))) {
+      break
+    }
+  }
+  
+  if (any(is.na(date_vector))) {
+    warning("Failed to convert some elements to dates.")
+  }
+  
+  return(as.Date(date_vector))
+}
+
+# Your character vector
+char_vector <- c("Jan 2014", "Feb 2014", "Mar 2014", "Apr 2014", "May 2014", "Jun 2014", "Jul 2014", "Aug 2014", "Sep 2014", "Oct 2014", "Nov 2014", "Dec 2014")
+char_vector2 = c("Jan-2014", "Feb-2014", "Mar-2014", "Apr-2014", "May-2014")
+char_vector3 = c("2014 January", "2014 February", "2014 March", "2014 April", "2014 May")
+char_vector4 = c("2014 Januar", "2014 Februar", "2014 Marts", "2014 April", "2014 Maj")
+# Convert to date vector
+date_vector <- convert_to_date(char_vector)
+
+# Print the result
+print(date_vector)
+Sys.setlocale(locale = "da_DK.UTF-8")
+Sys.setlocale(locale = "en_US.UTF-8") 
+
+
+test = paste0(char_vector, " 01")
+
+convert_to_date <- function(char_vec) {
+if(any(grepl("[-]", char_vec))) {
+  test = paste0(char_vec, "-01")
+} else if (any(grepl("[/]", char_vec))) {
+  test = paste0(char_vec, "/01")
+} else {
+  test = paste0(char_vec, " 01")
+}
+  
+tryCatch(
+  {
+    Sys.setlocale(locale = "en_US.UTF-8") 
+    out = as.Date(test, 
+        tryFormats = c("%Y %b %d", "%b %Y %d",
+                       "%Y %B %d", "%B %Y %d",
+                       "%Y-%b-%d", "%b-%Y-%d",
+                       "%Y-%B-%d", "%B-%Y-%d",
+                       "%Y/%b/%d", "%b-%Y/%d",
+                       "%Y/%B/%d", "%B-%Y/%d"))                 
+print(out)
+},
+error = function(err) {
+    # If an error occurs with the English date format, try Danish date format
+    danish_date <- tryCatch(
+      {
+        Sys.setlocale(locale = "da_DK.UTF-8")
+        dout = as.Date(test, 
+        tryFormats = c("%Y %b %d", "%b %Y %d",
+                       "%Y %B %d", "%B %Y %d",
+                       "%Y-%b-%d", "%b-%Y-%d",
+                       "%Y-%B-%d", "%B-%Y-%d",
+                       "%Y/%b/%d", "%b-%Y/%d",
+                       "%Y/%B/%d", "%B-%Y/%d"))                 
+      },
+      error = function(danish_err) {
+        cat("Error with Danish date format. Both attempts failed.\n")
+        return(NULL)  # Handle the case where both attempts fail
+      }
+    )
+    print(dout)
+  }
+)
+}
+convert_to_date(char_vector4)
+
+parse_date_time("Januar 2014 01", 
+        orders = c("%Y %b %d", "%b %Y %d",
+                       "%Y %B %d", "%B %Y %d",
+                       "%Y-%b-%d", "%b-%Y-%d",
+                       "%Y-%B-%d", "%B-%Y-%d",
+                       "%Y/%b/%d", "%b-%Y/%d",
+                       "%Y/%B/%d", "%B-%Y/%d"), locale = "da")

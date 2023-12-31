@@ -47,7 +47,8 @@ export class VisualSettings extends DataViewObjectsParser {
       }
 
 export class rcv_scriptSettings {
-  public provider
+  // undefined
+  public provider      // undefined
   public source     }
     
 
@@ -56,85 +57,66 @@ export class mySettingsAxes {
   public textSize: number = 10;
   public sizeTicks: string = "8";
   public axisLine: boolean = false;
+  public datoAxe: boolean = false
 
 }
 
 export class LowerColumnValue1Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class LowerColumnValue2Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class LowerColumnValue3Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class LowerColumnValue4Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class LowerColumnValue5Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class UpperColumnValue1Format {
   public colLabel: string = "#FF0000";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class UpperColumnValue2Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class UpperColumnValue3Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class UpperColumnValue4Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
 
 export class UpperColumnValue5Format {
   public colLabel: string = "grey";
   public textLabel: boolean = false;
-  public labelColor: string = "grey"
   public labelPlace: string = "none";
-  public fontSize: number = 12;
 }
