@@ -56,9 +56,8 @@ export class mySettingsAxes {
   public colLabel: string = "grey";
   public textSize: number = 10;
   public sizeTicks: string = "8";
-  public axisLine: boolean = false;
-  public datoAxe: boolean = false
-
+  public x_axis_title: string = "Nothing at the moment"
+  public y_axis_title: string = "Nothing at the moment"
 }
 
 export class LowerColumnValue1Format {

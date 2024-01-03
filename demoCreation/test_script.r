@@ -4,17 +4,20 @@ library(plotly)
 library(scales)
 library(tsibble)
 
-df3 = read_csv("C:/Users/andre/Downloads/10000 Sales Records.csv")
+#df3 = read_csv("C:/Users/andre/Downloads/10000 Sales Records.csv")
+df3 = read_csv("C:/Users/AndreasMT/Downloads/10000-Sales-Records.zip")
+
 
 category = data.frame(yearmonth(as.Date(df3$`Order Date`, tryFormats = c("%Y-%m-%d", "%m/%d/%Y"))))
-
+category = data.frame(df3[1])
 category = category %>%
   filter(yearmonth.as.Date.df3..Order.Date...tryFormats...c...Y..m..d... %in% yearmonth(c("2016 Jan","2016 Feb","2016 Mar","2016 Apr","2016 May","2016 Jun","2016 Jul","2016 Aug","2016 Sep","2016 Oct","2016 Nov","2016 Dec")))
 
-l_col1 = data.frame(df3[11])
-u_col2 = data.frame(df3[12])
-l_col2 = data.frame(df3[13])
-l_col3 = data.frame(df3[14])
+tooltip = data.frame(df3[9], df3[10])
+
+l_col1 = data.frame(df3[12])
+l_col3 = data.frame(df3[13])
+l_col2 = data.frame(df3[14])
 
 small_multi =data.frame(df3[4])
 
@@ -321,3 +324,28 @@ parse_date_time("Januar 2014 01",
                        "%Y-%B-%d", "%B-%Y-%d",
                        "%Y/%b/%d", "%b-%Y/%d",
                        "%Y/%B/%d", "%B-%Y/%d"), locale = "da")
+
+text = paste0("</br>CampaignID: ", CampaignID,
+                                 "</br>Chain: ", Chain,
+                                 "</br>Kampagnesalg volumen: ", round(Salg),
+                                 "</br>Kampagnesalg - gns. pris (stk): ", round(Pris, digits = 2),
+                                 "</br>Kampagnesalg stk: ", `Kampagnesalg stk`,
+                                 "</br>PromoEndWeek: ", PromoEndWeek,
+                                 "</br>Inkluderede subbrands: ", `Kampagne Unik Subbrands`,
+                                 "</br>Antal produkter: ", `Product`,
+                                 "</br>Stk tilskud: ", `Stk tilskud`,
+                                 "</br>Markedsfoeringstilskud: ", Markedsfoeringstilskud
+                   )
+
+dftest <- data.frame(A=c(1,1,1,2,2,2), B=c(3,3,3,6,6, 6), C=c(2,3,9,12,2, 6), D=c("a1", "a2", "a3", "a1", "a2", "a3"))
+dftest$D2 = dftest$D
+# Pivot the dataframe wider while keeping all columns
+result <- pivot_wider(dftest, id_cols = c(A, B, C, D), names_from = D2, values_from = D2)
+# Print the result
+print(result)
+
+data_to_use
+data_to_use$test = data_to_use$values
+data_to_use$test2 = data_to_use$type
+
+data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)

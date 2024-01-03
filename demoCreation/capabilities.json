@@ -201,12 +201,12 @@
   ],
   "objects": {
     "mySettingsAxes": {
-      "displayName": "Axes",
+      "displayName": "Axes and labeling",
       "description": "Axes and labels settings",
       "properties": {
         "colLabel": {
-          "displayName": "Labels color",
-          "description": "Labels color",
+          "displayName": "Color of labels",
+          "description": "Color of labels",
           "type": {
             "fill": {
               "solid": {
@@ -216,15 +216,9 @@
           }
         },
         "textSize": {
-          "displayName": "Labels size",
+          "displayName": "Font size of labels",
           "type": {
             "numeric": true
-          }
-        },
-        "datoAxe": {
-          "displayName": "Date x_axis",
-          "type": {
-            "bool": true
           }
         },
         "sizeTicks": {
@@ -278,6 +272,18 @@
           "displayName": "Axis line",
           "type": {
             "bool": true
+          }
+        },
+        "x_axis_title": {
+          "displayName": "X axis title",
+          "type": {
+            "text": true
+          }
+        },
+        "y_axis_title": {
+          "displayName": "Y axis title",
+          "type": {
+            "text": true
           }
         }
       }

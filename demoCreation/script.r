@@ -72,6 +72,7 @@ for (i in 1:num_cols) {
   }
 }
 
+##########Axes Settings###################
 if (!exists("mySettingsAxes_textSize")) {
   mySettingsAxes_textSize = 10/2.8
 } else {
@@ -81,15 +82,20 @@ if (!exists("mySettingsAxes_textSize")) {
 if (!exists("mySettingsAxes_colLabel")) {
   mySettingsAxes_colLabel = "black"
 }
-if (!exists("mySettingsAxes_datoAxe")) {
-  mySettingsAxes_datoAxe = FALSE
+
+if (!exists("mySettingsAxes_x_axis_title")) {
+  mySettingsAxes_x_axis_title = ""
 }
+
+if (!exists("mySettingsAxes_y_axis_title")) {
+  mySettingsAxes_y_axis_title = ""
+}
+
 
 update_geom_defaults("text", list(size = mySettingsAxes_textSize, color = mySettingsAxes_colLabel)) ##sæt nu genereal size her
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
-
 
 category[] <- lapply(category[1], as.character)
 
@@ -164,6 +170,7 @@ all_colors <- unlist(c(colors, colors2))
 ###########Transforming Dataframe###############
 colnames(Values)[1] = "x_axis"
 colnames(Values2)[1] = "x_axis"
+
 
 #Function to make alphabetical order of columns
 assign_numeric_order <- function(data, type_column) {
@@ -240,7 +247,7 @@ used_labels = rbind(used_labels1, used_labels2)
 df$date_axis = df$newx_axis
 df2$date_axis = df2$newx_axis
 
-if(any(grepl("^(\\d{4}[-\\s/][a-zA-Z]{3,}|[a-zA-Z]{3,}[-\\s/]\\d{4})$", df$x_axis, perl = TRUE))) {
+if(any(grepl("^(\\d{4}\\s?[-\\s/]\\s?[a-zA-Z]{3,}|[a-zA-Z]{3,}\\s?[-\\s/]\\s?\\d{4})$", df$x_axis, perl = TRUE))) {
 
 convert_to_date <- function(char_vec) {
 if(any(grepl("[-]", char_vec))) {
@@ -258,8 +265,12 @@ tryCatch(
                        "%Y %B %d", "%B %Y %d",
                        "%Y-%b-%d", "%b-%Y-%d",
                        "%Y-%B-%d", "%B-%Y-%d",
-                       "%Y/%b/%d", "%b-%Y/%d",
-                       "%Y/%B/%d", "%B-%Y/%d")))                
+                       "%Y - %B-%d", "%B - %Y-%d",
+                       "%Y - %b-%d", "%b - %Y-%d",                       
+                       "%Y/%b/%d", "%b/%Y/%d",
+                       "%Y/%B/%d", "%B/%Y/%d",
+                       "%Y / %b/%d", "%b / %Y/%d",
+                       "%Y / %B/%d", "%B / %Y/%d")))                
 },
 error = function(err) {
     # If an error occurs with the English date format, try Danish date format
@@ -293,7 +304,7 @@ df2$date_axis = convert_to_date(df2$x_axis)
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
   scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
-  labs(x = "", y = "")
+  labs(x = mySettingsAxes_x_axis_title, y = mySettingsAxes_y_axis_title)
 
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis", "date_axis"))
@@ -342,14 +353,20 @@ combined_df = combined %>%
                                        sum_values-max_value*-0.02,
                                        if_else(placement == "bottom",
                                                (sum_values-values)-max_value*-0.02,
-                                               sum_values-max_value*0.04))))
+                                               sum_values-max_value*0.04))))                                              
+
+  data_to_use$test = data_to_use$values
+data_to_use$test2 = data_to_use$type
+data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)
+data_to_use[is.na(data_to_use)] <- 0
+text = str_replace_all("Total.Cost", "\\.", " ")
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = .data[[text]]), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = .data[[text]]), 
              width = 0.35) +
     geom_text(data = combined_df,
               aes(x = reorder(newx_axis, date_axis),
@@ -362,7 +379,7 @@ combined_df = combined %>%
 #################################################### 
 
 ############# Create and save widget ###############
-p = ggplotly(g, tooltip =c("values"))%>%
+p = ggplotly(g, tooltip =c("y", "text"))%>%
   layout(plot_bgcolor='#FFFFFF',
          yaxis = list(gridcolor = "#F1F2F3",
                       gridwidth = 0.1),

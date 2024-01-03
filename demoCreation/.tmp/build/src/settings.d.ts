@@ -22,8 +22,8 @@ export declare class mySettingsAxes {
     colLabel: string;
     textSize: number;
     sizeTicks: string;
-    axisLine: boolean;
-    datoAxe: boolean;
+    x_axis_title: string;
+    y_axis_title: string;
 }
 export declare class LowerColumnValue1Format {
     colLabel: string;
