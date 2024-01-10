@@ -13,10 +13,9 @@ category = data.frame(df3[1])
 category = category %>%
   filter(yearmonth.as.Date.df3..Order.Date...tryFormats...c...Y..m..d... %in% yearmonth(c("2016 Jan","2016 Feb","2016 Mar","2016 Apr","2016 May","2016 Jun","2016 Jul","2016 Aug","2016 Sep","2016 Oct","2016 Nov","2016 Dec")))
 
-tooltip = data.frame(df3[9], df3[10])
 
-l_col1 = data.frame(df3[12])
-l_col3 = data.frame(df3[13])
+l_col3 = data.frame(df3[12])
+l_col1 = data.frame(df3[13])
 l_col2 = data.frame(df3[14])
 
 small_multi =data.frame(df3[4])
@@ -349,3 +348,14 @@ data_to_use$test = data_to_use$values
 data_to_use$test2 = data_to_use$type
 
 data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)
+
+df_test <- data.frame(Column1 = c("A", "B", "C"),
+                 Column2 = c(1, 2, 3))
+
+# Create a vector with the desired format
+formatted_vector <- apply(df_test, 1, function(row) {
+  paste0(row[1], ": ", row[2])
+})
+
+# Print the result
+print(formatted_vector)

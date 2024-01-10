@@ -355,18 +355,23 @@ combined_df = combined %>%
                                                (sum_values-values)-max_value*-0.02,
                                                sum_values-max_value*0.04))))                                              
 
-  data_to_use$test = data_to_use$values
-data_to_use$test2 = data_to_use$type
-data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)
+#  data_to_use$test = data_to_use$values
+#data_to_use$test2 = data_to_use$type
+#data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)
 data_to_use[is.na(data_to_use)] <- 0
-text = str_replace_all("Total.Cost", "\\.", " ")
+
+data_to_use1 = data_to_use %>% select(c(type, values, numeric_order))
+
+formatted_vector1 <- apply(data_to_use1, 1, function(row) {
+  paste0(row[1], ": ", row[2])
+})
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = .data[[text]]), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector1), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = .data[[text]]), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
              width = 0.35) +
     geom_text(data = combined_df,
               aes(x = reorder(newx_axis, date_axis),
@@ -376,10 +381,10 @@ text = str_replace_all("Total.Cost", "\\.", " ")
  
 }
 
-#################################################### 
+####################################################
 
 ############# Create and save widget ###############
-p = ggplotly(g, tooltip =c("y", "text"))%>%
+p = ggplotly(g, tooltip = c("text"))%>%
   layout(plot_bgcolor='#FFFFFF',
          yaxis = list(gridcolor = "#F1F2F3",
                       gridwidth = 0.1),
