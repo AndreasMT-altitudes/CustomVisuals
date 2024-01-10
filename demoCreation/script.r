@@ -124,7 +124,7 @@ Values2 <- initialize_data_frame(Values2, "u")
 
 
 #######Color Specefications
-default_labels <- c("#73b761", "#4a588a", "#ecc846", "#cd4c46", "#71afe2", "#8d6fd1", "#ee9e64", "#95dabb", "#8fc581", "#6e79a1")
+default_labels <- c("#9e7e38", "#000000", "#82231c", "#511536", "#443e67", "#375669", "#456525", "#59786c", "#3d3c1d", "#625750")
 colors = c()
 colors2 = c()
 
@@ -186,11 +186,11 @@ create_summary_df <- function(data) {
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10),
-      values2 = paste0(as.character(round(values / 1e6, 0)), "M")) %>%
+      values2 = ifelse(is.na(values), "0M", paste0(as.character(round(values / 1e6, 0)), "M"))) %>%
       assign_numeric_order(type_column = type) %>%
       group_by(x_axis, small) %>%
       arrange(x_axis,small, numeric_order) %>%
-      mutate(sum_values = accumulate(values, ~.x + .y)[numeric_order]) %>%
+      mutate(sum_values = accumulate(coalesce(values, 0), ~.x + .y)[numeric_order]) %>%
       ungroup()
   } else if (!exists("small_multi") && length(data) > 1) {
     df = data %>%
@@ -198,11 +198,11 @@ create_summary_df <- function(data) {
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis), names_to = "type", values_to = "values") %>%
       mutate(newx_axis = str_wrap(x_axis, width = 10),
-      values2 = paste0(as.character(round(values / 1e6, 0)), "M"))%>%
+      values2 = ifelse(is.na(values), "0M", paste0(as.character(round(values / 1e6, 0)), "M")))%>%
       assign_numeric_order(type_column = type) %>%
       group_by(x_axis) %>%
       arrange(x_axis, numeric_order) %>%
-      mutate(sum_values = accumulate(values, ~.x + .y)[numeric_order]) %>%
+      mutate(sum_values = accumulate(coalesce(values, 0), ~.x + .y)[numeric_order]) %>%
       ungroup()
   } else {
     df = data.frame()  # or NULL, depending on your use case
@@ -309,7 +309,7 @@ g <- ggplot() +
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis", "date_axis"))
 
-  max_value = max(data_to_use$values)
+  max_value = max(data_to_use$values, na.rm = TRUE)
   combined = merge(x=data_to_use,y=used_labels, 
              by.x= c("type"), by.y = c("Variable"), all.x=TRUE)
 
@@ -322,13 +322,24 @@ combined_df = combined %>%
                                                (sum_values-values)-max_value*-0.02,
                                                sum_values-max_value*0.04))))
 
+data_to_use[is.na(data_to_use)] <- 0
+
+data_to_use1 = data_to_use %>% select(c(type, values, numeric_order, type2))
+
+formatted_vector1 <- apply(data_to_use1[data_to_use1$type2 == "type1",], 1, function(row) {
+  paste0(row[1], ": ", row[2])
+})
+
+formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, function(row) {
+  paste0(row[1], ": ", row[2])
+})
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector1), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector2), 
              width = 0.35)+
              facet_grid(~small) + ##### Tror alt til small multi format kan lægges her
              theme(strip.background =element_rect(fill="#FFFFFF"))+
@@ -341,7 +352,7 @@ combined_df = combined %>%
 } else {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("newx_axis", "values", "type", "type2", "values2", "numeric_order", "sum_values", "x_axis", "date_axis"))
 
-  max_value = max(data_to_use$values)
+  max_value = max(data_to_use$values, na.rm = TRUE)
 
   combined = merge(x=data_to_use,y=used_labels, 
              by.x= c("type"), by.y = c("Variable"), all.x=TRUE)
@@ -355,14 +366,15 @@ combined_df = combined %>%
                                                (sum_values-values)-max_value*-0.02,
                                                sum_values-max_value*0.04))))                                              
 
-#  data_to_use$test = data_to_use$values
-#data_to_use$test2 = data_to_use$type
-#data_to_use = pivot_wider(data_to_use, id_cols = c(x_axis, type, values, newx_axis, values2, numeric_order, sum_values, type2, date_axis), names_from = test2, values_from = test)
 data_to_use[is.na(data_to_use)] <- 0
 
-data_to_use1 = data_to_use %>% select(c(type, values, numeric_order))
+data_to_use1 = data_to_use %>% select(c(type, values, numeric_order, type2))
 
-formatted_vector1 <- apply(data_to_use1, 1, function(row) {
+formatted_vector1 <- apply(data_to_use1[data_to_use1$type2 == "type1",], 1, function(row) {
+  paste0(row[1], ": ", row[2])
+})
+
+formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, function(row) {
   paste0(row[1], ": ", row[2])
 })
 
@@ -371,7 +383,7 @@ formatted_vector1 <- apply(data_to_use1, 1, function(row) {
              aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector1), 
              width = 0.6) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
-             aes(x = reorder(newx_axis, date_axis), y = values, fill = type), 
+             aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector2), 
              width = 0.35) +
     geom_text(data = combined_df,
               aes(x = reorder(newx_axis, date_axis),
@@ -403,3 +415,4 @@ internalSaveWidget(p, 'out.html');
 ################ Reduce paddings ###################
 ReadFullFileReplaceString('out.html', 'out.html', ',"padding":[0-9]*,', ',"padding":0,')
 ####################################################
+

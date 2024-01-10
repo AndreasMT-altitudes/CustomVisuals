@@ -17,6 +17,7 @@ category = category %>%
 l_col3 = data.frame(df3[12])
 l_col1 = data.frame(df3[13])
 l_col2 = data.frame(df3[14])
+u_col2 = data.frame(df3[10])
 
 small_multi =data.frame(df3[4])
 
@@ -29,6 +30,22 @@ LowerColumnValue2Format_labelColor = "#B24CC2"
 LowerColumnValue1Format_labelPlace = "none"
 LowerColumnValue2Format_labelPlace = "on top"
 LowerColumnValue3Format_labelPlace = "middle"
+
+
+
+tester = data.frame(Hovedgruppe = c("Andet", "Fragt", "Maskiner", "N/A", "Produktion", "Reservedele", "Service", "Slibning", "Værktøj"),
+                    SalesAmount = c(-7399568.64, 952397.38, 132798640.36, 3158.98, 14042030.30, 13715715.50, 14584769.40, 18024815.36, 24691009.02),
+                    SalesOrderAmount = c(-4485058.75, 35605.35, 58208000.99, 0.00, 2772146.52, 5450116.05, 40266.98, 677423.53, 8829174.77),
+                    SalesBudget = c(NA, NA, 133926315, NA, 12150990, 14502000, 17999000, 19675632, 27082151))
+
+category = data.frame(tester[1])
+l_col1 = data.frame(tester[2])
+u_col2 = data.frame(tester[3])
+u_col1 = data.frame(tester[4])
+
+
+
+
 
 
 
