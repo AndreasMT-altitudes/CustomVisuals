@@ -55,14 +55,17 @@ export class rcv_scriptSettings {
 
 export class mySettingsAxes {
   public x_axis_title: string = "Nothing at the moment"
+  public x_axis_textSize: number = 8
+  public x_axis_textRotate: string = "0"
   public y_axis_title: string = "Nothing at the moment"
+  public y_axis_textSize: number = 8
 }
 
 export class BarSettings{
   public colLabel: string = "grey";
-  public textSize: number = 6;
-  public LBarSize: number = 0.6;
-  public UBarSize: number = 0.35;
+  public textSize: string = "12";
+  public LBarSize: string = "0.6";
+  public UBarSize: string = "0.35";
 }
 
 export class LowerColumnValue1Format {
@@ -96,7 +99,7 @@ export class LowerColumnValue5Format {
 }
 
 export class UpperColumnValue1Format {
-  public colLabel: string = "#FF0000";
+  public colLabel: string = "grey";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }

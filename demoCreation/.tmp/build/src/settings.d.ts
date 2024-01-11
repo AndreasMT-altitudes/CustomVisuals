@@ -21,13 +21,16 @@ export declare class rcv_scriptSettings {
 }
 export declare class mySettingsAxes {
     x_axis_title: string;
+    x_axis_textSize: number;
+    x_axis_textRotate: string;
     y_axis_title: string;
+    y_axis_textSize: number;
 }
 export declare class BarSettings {
     colLabel: string;
-    textSize: number;
-    LBarSize: number;
-    UBarSize: number;
+    textSize: string;
+    LBarSize: string;
+    UBarSize: string;
 }
 export declare class LowerColumnValue1Format {
     colLabel: string;
