@@ -2,6 +2,7 @@ import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 export declare class VisualSettings extends DataViewObjectsParser {
     mySettingsAxes: mySettingsAxes;
+    BarSettings: BarSettings;
     LowerColumnValue1Format: LowerColumnValue1Format;
     LowerColumnValue2Format: LowerColumnValue2Format;
     LowerColumnValue3Format: LowerColumnValue3Format;
@@ -19,11 +20,14 @@ export declare class rcv_scriptSettings {
     source: any;
 }
 export declare class mySettingsAxes {
-    colLabel: string;
-    textSize: number;
-    sizeTicks: string;
     x_axis_title: string;
     y_axis_title: string;
+}
+export declare class BarSettings {
+    colLabel: string;
+    textSize: number;
+    LBarSize: number;
+    UBarSize: number;
 }
 export declare class LowerColumnValue1Format {
     colLabel: string;

@@ -7,7 +7,7 @@ var powerbiKey: any = "powerbi";
 var powerbi: any = window[powerbiKey];
 var demoCreation522AEF1866B94124B4C4F588A968843A: IVisualPlugin = {
     name: 'demoCreation522AEF1866B94124B4C4F588A968843A',
-    displayName: 'demoCreation',
+    displayName: 'Overlayering Stacked Column chart',
     class: 'Visual',
     apiVersion: '3.8.0',
     create: (options: VisualConstructorOptions) => {

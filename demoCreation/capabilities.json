@@ -204,6 +204,29 @@
       "displayName": "Axes and labeling",
       "description": "Axes and labels settings",
       "properties": {
+        "axisLine": {
+          "displayName": "Axis line",
+          "type": {
+            "bool": true
+          }
+        },
+        "x_axis_title": {
+          "displayName": "X axis title",
+          "type": {
+            "text": true
+          }
+        },
+        "y_axis_title": {
+          "displayName": "Y axis title",
+          "type": {
+            "text": true
+          }
+        }
+      }
+    },"BarSettings": {
+      "displayName": "General bar settings",
+      "description": "General bar settings and labelling",
+      "properties": {
         "colLabel": {
           "displayName": "Color of labels",
           "description": "Color of labels",
@@ -221,69 +244,16 @@
             "numeric": true
           }
         },
-        "sizeTicks": {
-          "displayName": "Size ticks",
-          "description": "Size ticks",
+        "LBarSize": {
+          "displayName": "Width of Lower bar",
           "type": {
-            "enumeration": [{
-                "displayName": "None",
-                "value": "0"
-              },
-              {
-                "displayName": "4",
-                "value": "4"
-              },
-              {
-                "displayName": "6",
-                "value": "6"
-              },
-              {
-                "displayName": "8",
-                "value": "8"
-              },
-              {
-                "displayName": "10",
-                "value": "10"
-              },
-              {
-                "displayName": "12",
-                "value": "12"
-              },
-              {
-                "displayName": "14",
-                "value": "14"
-              },
-              {
-                "displayName": "16",
-                "value": "16"
-              },
-              {
-                "displayName": "18",
-                "value": "18"
-              },
-              {
-                "displayName": "20",
-                "value": "20"
-              }
-            ]
+            "numeric": true
           }
         },
-        "axisLine": {
-          "displayName": "Axis line",
+        "UBarSize": {
+          "displayName": "Width of upper bar",
           "type": {
-            "bool": true
-          }
-        },
-        "x_axis_title": {
-          "displayName": "X axis title",
-          "type": {
-            "text": true
-          }
-        },
-        "y_axis_title": {
-          "displayName": "Y axis title",
-          "type": {
-            "text": true
+            "numeric": true
           }
         }
       }

@@ -1,1 +1,25 @@
-{"visual":{"name":"demoCreation","displayName":"demoCreation","guid":"demoCreation522AEF1866B94124B4C4F588A968843A","visualClassName":"Visual","version":"1.0.0.0","description":"Demo","supportUrl":"Demo.dk","gitHubUrl":""},"apiVersion":"3.8.0","author":{"name":"Andreas Methling","email":"andreas.methling@gmail.com"},"assets":{"icon":"assets/icon.png"},"externalJS":null,"style":"style/visual.less","capabilities":"capabilities.json","dependencies":"dependencies.json","stringResources":[]}
+{
+    "visual":{
+        "name":"demoCreation",
+        "displayName":"Overlayering Stacked Column chart",
+        "guid":"demoCreation522AEF1866B94124B4C4F588A968843A",
+        "visualClassName":"Visual",
+        "version":"1.0.0.0",
+        "description":"Demo",
+        "supportUrl":"Demo.dk",
+        "gitHubUrl":""
+    },
+    "apiVersion":"3.8.0",
+    "author":{
+        "name":"Andreas Methling",
+        "email":"andreas.methling@gmail.com"
+    },
+    "assets":{
+        "icon":"assets/column chart icon4.jpg"
+    },
+    "externalJS":null,
+    "style":"style/visual.less",
+    "capabilities":"capabilities.json",
+    "dependencies":"dependencies.json",
+    "stringResources":[]
+}

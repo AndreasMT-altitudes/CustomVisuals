@@ -8,7 +8,7 @@
             "file": "resources/demoCreation522AEF1866B94124B4C4F588A968843A.pbiviz.json"
         }
     ],
-    "visual": {"name":"demoCreation","displayName":"demoCreation","guid":"demoCreation522AEF1866B94124B4C4F588A968843A","visualClassName":"Visual","version":"1.0.0.0","description":"Demo","supportUrl":"Demo.dk","gitHubUrl":""},
+    "visual": {"name":"demoCreation","displayName":"Overlayering Stacked Column chart","guid":"demoCreation522AEF1866B94124B4C4F588A968843A","visualClassName":"Visual","version":"1.0.0.0","description":"Demo","supportUrl":"Demo.dk","gitHubUrl":""},
     "metadata": {
         "pbivizjson": {
             "resourceId": "rId0"

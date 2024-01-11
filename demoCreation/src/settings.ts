@@ -31,6 +31,7 @@ import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
 export class VisualSettings extends DataViewObjectsParser {
   public mySettingsAxes: mySettingsAxes = new mySettingsAxes(); 
+  public BarSettings: BarSettings = new BarSettings();
   public LowerColumnValue1Format: LowerColumnValue1Format = new LowerColumnValue1Format();
   public LowerColumnValue2Format: LowerColumnValue2Format = new LowerColumnValue2Format();   
   public LowerColumnValue3Format: LowerColumnValue3Format = new LowerColumnValue3Format();   
@@ -53,11 +54,15 @@ export class rcv_scriptSettings {
     
 
 export class mySettingsAxes {
-  public colLabel: string = "grey";
-  public textSize: number = 10;
-  public sizeTicks: string = "8";
   public x_axis_title: string = "Nothing at the moment"
   public y_axis_title: string = "Nothing at the moment"
+}
+
+export class BarSettings{
+  public colLabel: string = "grey";
+  public textSize: number = 6;
+  public LBarSize: number = 0.6;
+  public UBarSize: number = 0.35;
 }
 
 export class LowerColumnValue1Format {

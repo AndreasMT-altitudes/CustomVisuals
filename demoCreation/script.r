@@ -72,17 +72,27 @@ for (i in 1:num_cols) {
   }
 }
 
-##########Axes Settings###################
-if (!exists("mySettingsAxes_textSize")) {
-  mySettingsAxes_textSize = 10/2.8
+##########Bar Settings###################
+if (!exists("BarSettings_textSize")) {
+  BarSettings_textSize = 10/2.8
 } else {
-  mySettingsAxes_textSize = mySettingsAxes_textSize/2.8
+  mBarSettings_textSize = BarSettings_textSize/2.8
 }
 
-if (!exists("mySettingsAxes_colLabel")) {
-  mySettingsAxes_colLabel = "black"
+if (!exists("BarSettings_colLabel")) {
+  BarSettings_colLabel = "black"
 }
 
+if (!exists("BarSettings_LBar_Size")) {
+  BarSettings_LBar_Size = 0.6
+}
+
+if (!exists("BarSettings_UBar_Size")) {
+  BarSettings_UBar_Size = 0.35
+}
+
+
+##########Axes Settings###################
 if (!exists("mySettingsAxes_x_axis_title")) {
   mySettingsAxes_x_axis_title = ""
 }
@@ -92,7 +102,7 @@ if (!exists("mySettingsAxes_y_axis_title")) {
 }
 
 
-update_geom_defaults("text", list(size = mySettingsAxes_textSize, color = mySettingsAxes_colLabel)) ##sæt nu genereal size her
+update_geom_defaults("text", list(size = BarSettings_textSize, color = BarSettings_colLabel)) ##sæt nu genereal size her
 
 #############Create Values- dataset from user selected fields####################
 # Set the number of columns
@@ -337,10 +347,10 @@ formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, func
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
              aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector1), 
-             width = 0.6) +
+             width = BarSettings_LBar_Size) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
              aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector2), 
-             width = 0.35)+
+             width = BarSettings_UBar_Size)+
              facet_grid(~small) + ##### Tror alt til small multi format kan lægges her
              theme(strip.background =element_rect(fill="#FFFFFF"))+
     geom_text(data = combined_df,
@@ -381,10 +391,10 @@ formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, func
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
              aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector1), 
-             width = 0.6) +
+             width = BarSettings_LBar_Size) +
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
              aes(x = reorder(newx_axis, date_axis), y = values, fill = type, text = formatted_vector2), 
-             width = 0.35) +
+             width = BarSettings_UBar_Size) +
     geom_text(data = combined_df,
               aes(x = reorder(newx_axis, date_axis),
                   y = sum_values2),
