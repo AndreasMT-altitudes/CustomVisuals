@@ -63,6 +63,7 @@ export class mySettingsAxes {
 
 export class BarSettings{
   public colLabel: string = "grey";
+  public unitLabel: string = "auto"
   public textSize: string = "12";
   public LBarSize: string = "0.6";
   public UBarSize: string = "0.35";

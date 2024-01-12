@@ -201,8 +201,8 @@
   ],
   "objects": {
     "mySettingsAxes": {
-      "displayName": "Axes and labeling",
-      "description": "Axes and labels settings",
+      "displayName": "Axes settings",
+      "description": "Axes settings",
       "properties": {
         "axisLine": {
           "displayName": "Axis line",
@@ -223,7 +223,7 @@
           }
         },
         "x_axis_textRotate": {
-          "displayName": "X axis text rotation",
+          "displayName": "X axis text rotation degrees",
           "type": {
             "enumeration": [
               {
@@ -279,6 +279,33 @@
                 "color": true
               }
             }
+          }
+        },
+        "unitLabel": {
+          "displayName": "Unit",
+          "type": {
+            "enumeration": [
+            {
+              "displayName": "auto",
+              "value": "auto"
+            },
+            {
+              "displayName": "tus.",
+              "value": "tus."
+            },
+            {
+              "displayName": "mio.",
+              "value": "mio."
+            },
+            {
+              "displayName": "mia.",
+              "value": "mia."
+            },
+            {
+              "displayName": "bio",
+              "value": "bio"
+            }
+          ]
           }
         },
         "textSize": {

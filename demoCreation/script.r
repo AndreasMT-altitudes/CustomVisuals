@@ -95,6 +95,10 @@ if (!exists("BarSettings_UBarSize")) {
    as.numeric(BarSettings_UBarSize)
 }
 
+if (!exists("BarSettings_unitLabel")) {
+  BarSettings_unitLabel = ""
+}
+
 
 ##########Axes Settings###################
 if (!exists("mySettingsAxes_x_axis_title")) {
@@ -208,6 +212,8 @@ assign_numeric_order <- function(data, type_column) {
     mutate(numeric_order = match({{type_column}}, rev(sort(unique({{type_column}})))))
 }
 
+test = sum(data.frame(group_by(Values, x_axis) %>% summarise_all(list(c(sum ="sum"))))[2]) ## Lav til en funktion og fiks det
+
 # Function to create summary data frame
 create_summary_df <- function(data) {
   if (exists("small_multi") && length(data) > 2) {
@@ -226,7 +232,7 @@ create_summary_df <- function(data) {
       group_by(x_axis) %>%
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis), names_to = "type", values_to = "values") %>%
-      mutate( values2 = ifelse(is.na(values), "0M", paste0(as.character(round(values / 1e6, 0)), "M")))%>%
+      mutate( values2 = ifelse(is.na(values), paste0("0", BarSettings_unitLabel), paste0(as.character(round(values / 1e6, 0)), BarSettings_unitLabel)))%>%
       assign_numeric_order(type_column = type) %>%
       group_by(x_axis) %>%
       arrange(x_axis, numeric_order) %>%
@@ -329,9 +335,14 @@ df2$date_axis = convert_to_date(df2$x_axis)
 }
 }
 
+max = max(rbind(df, df2)$sum_values, na.rm = TRUE)
+unit = ifelse(max > 1000000000000, "bio.", ifelse(max > 1000000000, "mia.", ifelse(max > 1000000, "mio.", ifelse(max > 1000, "tus.", ""))))
+scale = ifelse(max > 1000000000000, 1e-12, ifelse(max > 1000000000, 1e-9, ifelse(max > 1000000, 1e-6, ifelse(max > 1000, 1e-3, ""))))
+
+
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
-  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
+  scale_y_continuous(labels = unit_format(unit = unit, scale = scale)) +
   labs(x = mySettingsAxes_x_axis_title, y = mySettingsAxes_y_axis_title) + 
   theme(axis.text.x = element_text(size = mySettingsAxes_x_axis_textSize, angle = mySettingsAxes_x_axis_textRotate),
         axis.text.y = element_text(size = mySettingsAxes_y_axis_textSize))
