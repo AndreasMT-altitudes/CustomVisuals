@@ -95,10 +95,6 @@ if (!exists("BarSettings_UBarSize")) {
    as.numeric(BarSettings_UBarSize)
 }
 
-if (!exists("BarSettings_unitLabel")) {
-  BarSettings_unitLabel = ""
-}
-
 
 ##########Axes Settings###################
 if (!exists("mySettingsAxes_x_axis_title")) {
@@ -147,7 +143,21 @@ initialize_data_frame <- function(df, str) {
     col_name <- paste(str, "_col", i, sep = "")
     if (exists("category") && exists(col_name)) {
       df[[col_name]] <- get(col_name)
+      if(str == "l"){
+        test = "Lower"
+    } else {
+      test = "Upper"
+    }
+      if(exists(paste0(test ,"ColumnValue", i, "Format_Name"))){
+        if(paste0(test ,"ColumnValue", i, "Format_Name") == ""){
+          colnames(df)[length(df)] <- colnames(get(col_name))
+      } else {
+          colnames(df)[length(df)] <- get(paste0(test ,"ColumnValue", i, "Format_Name"))
+        }
+      } 
+      else{
       colnames(df)[length(df)] <- colnames(get(col_name))
+      }
     }
   }
   return(df)
@@ -164,24 +174,44 @@ colors2 = c()
 
 colors <- lapply(1:num_cols, function(i) {
   label_name <- paste("LowerColumnValue", i, "Format_colLabel", sep = "")
+  label_name2 <- paste("LowerColumnValue", i, "Format_Name", sep = "")
   col_name <- paste("l_col", i, sep = "")
-  if (!exists(label_name) && exists(col_name)) {
-    col_vec = c()
-    name = colnames(get(col_name))
-    col_vec[name] = default_labels[i]
-    value = col_vec[name]
-    return(col_vec)
-  } else if (exists(label_name) && exists(col_name)) {
-    col_vec = c()
-    name = colnames(get(col_name))
-    col_vec[name] = get(label_name)
-    value = col_vec[name]
-    return(value)
+
+  if(exists(label_name2) && get(label_name2) != "") {
+    if (!exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = get(label_name2)
+      col_vec[name] = default_labels[i]
+      value = col_vec[name]
+      return(col_vec)
+    } else if (exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = get(label_name2)
+      col_vec[name] = get(label_name)
+      value = col_vec[name]
+      return(value)
+    } 
+  } else {
+    if (!exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = colnames(get(col_name))
+      col_vec[name] = default_labels[i]
+      value = col_vec[name]
+      return(col_vec)
+    } else if (exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = colnames(get(col_name))
+      col_vec[name] = get(label_name)
+      value = col_vec[name]
+      return(value)
+    }
+
   }
 })
 
 colors2 <- lapply(1:num_cols, function(i) {
   label_name <- paste("UpperColumnValue", i, "Format_colLabel", sep = "")
+  label_name2 <- paste("UpperColumnValue", i, "Format_Name", sep = "")
   col_name <- paste("u_col", i, sep = "")
   label <- 5 + i
   if (!exists(label_name) && exists(col_name)) {
@@ -221,7 +251,6 @@ create_summary_df <- function(data) {
       group_by(x_axis, small) %>%
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis, -small), names_to = "type", values_to = "values") %>%
-      mutate(values2 = ifelse(is.na(values), "0M", paste0(as.character(round(values / 1e6, 0)), "M"))) %>%
       assign_numeric_order(type_column = type) %>%
       group_by(x_axis, small) %>%
       arrange(x_axis,small, numeric_order) %>%
@@ -232,7 +261,6 @@ create_summary_df <- function(data) {
       group_by(x_axis) %>%
       summarise_all(list(c(sum = "sum"))) %>%
       pivot_longer(c(-x_axis), names_to = "type", values_to = "values") %>%
-      mutate( values2 = ifelse(is.na(values), paste0("0", BarSettings_unitLabel), paste0(as.character(round(values / 1e6, 0)), BarSettings_unitLabel)))%>%
       assign_numeric_order(type_column = type) %>%
       group_by(x_axis) %>%
       arrange(x_axis, numeric_order) %>%
@@ -339,13 +367,47 @@ max = max(rbind(df, df2)$sum_values, na.rm = TRUE)
 unit = ifelse(max > 1000000000000, "bio.", ifelse(max > 1000000000, "mia.", ifelse(max > 1000000, "mio.", ifelse(max > 1000, "tus.", ""))))
 scale = ifelse(max > 1000000000000, 1e-12, ifelse(max > 1000000000, 1e-9, ifelse(max > 1000000, 1e-6, ifelse(max > 1000, 1e-3, ""))))
 
-
 g <- ggplot() +
   scale_fill_manual(values = all_colors, name = NULL) +
   scale_y_continuous(labels = unit_format(unit = unit, scale = scale)) +
   labs(x = mySettingsAxes_x_axis_title, y = mySettingsAxes_y_axis_title) + 
   theme(axis.text.x = element_text(size = mySettingsAxes_x_axis_textSize, angle = mySettingsAxes_x_axis_textRotate),
         axis.text.y = element_text(size = mySettingsAxes_y_axis_textSize))
+
+if(!exists("BarSettings_decimal")){
+  BarSettings_decimal = 0
+}
+BarSettings_decimal = as.numeric(BarSettings_decimal)
+
+if (exists("BarSettings_unitLabel")) {
+  if(BarSettings_unitLabel == "auto") {
+
+  } else{
+  unit = BarSettings_unitLabel
+
+    if(unit == "tus.") {
+      scale = 1e-3
+    } else if(unit == "mio.") {
+      scale = 1e-6
+    } else if(unit == "mia.") {
+      scale = 1e-9
+    } else if(unit == "bio.") {
+      scale = 1e-12
+    }
+
+  } 
+}
+
+
+if(length(df) > 1){
+  df = df %>%
+    mutate(values2 = ifelse(is.na(values), paste0("0", unit), paste0(as.character(round(values*scale, BarSettings_decimal)), unit))) 
+}
+
+if(length(df2) > 1){
+  df2 = df2 %>%
+    mutate(values2 = ifelse(is.na(values), paste0("0", unit), paste0(as.character(round(values*scale, BarSettings_decimal)), unit))) 
+}
 
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis", "date_axis"))

@@ -308,6 +308,33 @@
           ]
           }
         },
+        "decimal": {
+          "displayName": "Number of decimals",
+          "type": {
+            "enumeration": [
+            {
+              "displayName": "0",
+              "value": "0"
+            },
+            {
+              "displayName": "1",
+              "value": "1"
+            },
+            {
+              "displayName": "2",
+              "value": "2"
+            },
+            {
+              "displayName": "3",
+              "value": "3"
+            },
+            {
+              "displayName": "4",
+              "value": "4"
+            }
+          ]
+          }
+        },
         "textSize": {
           "displayName": "Font size of labels",
           "type": {
@@ -503,8 +530,15 @@
       "displayName": "Lower column value 1",
       "description": "Lower column value 1 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -549,8 +583,15 @@
       "displayName": "Lower column value 2",
       "description": "Lower column value 2 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -595,8 +636,15 @@
       "displayName": "Lower column value 3",
       "description": "Lower column value 3 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -641,8 +689,15 @@
       "displayName": "Lower column value 4",
       "description": "Lower column value 4 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -687,8 +742,15 @@
       "displayName": "Lower column value 5",
       "description": "Lower column value 5 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -733,8 +795,15 @@
       "displayName": "Upper column value 1",
       "description": "Upper column value 1 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -779,8 +848,15 @@
       "displayName": "Upper column value 2",
       "description": "Upper column value 2 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -825,8 +901,15 @@
       "displayName": "Upper column value 3",
       "description": "Upper column value 3 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -871,8 +954,15 @@
       "displayName": "Upper column value 4",
       "description": "Upper column value 4 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {
@@ -917,8 +1007,15 @@
       "displayName": "Upper column value 5",
       "description": "Upper column value 5 settings",
       "properties": {
+        "Name": {
+          "displayName": "Variable Name",
+          "description": "Name of variable",
+          "type": {
+            "text": true
+          }
+        },
         "colLabel": {
-          "displayName": "color",
+          "displayName": "Color of bar",
           "description": "color of bar",
           "type": {
             "fill": {

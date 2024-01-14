@@ -28,56 +28,68 @@ export declare class mySettingsAxes {
 }
 export declare class BarSettings {
     colLabel: string;
+    unitLabel: string;
+    decimal: string;
     textSize: string;
     LBarSize: string;
     UBarSize: string;
 }
 export declare class LowerColumnValue1Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class LowerColumnValue2Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class LowerColumnValue3Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class LowerColumnValue4Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class LowerColumnValue5Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class UpperColumnValue1Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class UpperColumnValue2Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class UpperColumnValue3Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class UpperColumnValue4Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;
 }
 export declare class UpperColumnValue5Format {
+    Name: string;
     colLabel: string;
     textLabel: boolean;
     labelPlace: string;

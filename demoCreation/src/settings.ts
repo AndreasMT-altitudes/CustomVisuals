@@ -54,77 +54,88 @@ export class rcv_scriptSettings {
     
 
 export class mySettingsAxes {
-  public x_axis_title: string = "Nothing at the moment"
+  public x_axis_title: string = ""
   public x_axis_textSize: number = 8
   public x_axis_textRotate: string = "0"
-  public y_axis_title: string = "Nothing at the moment"
+  public y_axis_title: string = ""
   public y_axis_textSize: number = 8
 }
 
 export class BarSettings{
   public colLabel: string = "grey";
-  public unitLabel: string = "auto"
+  public unitLabel: string = "auto";
+  public decimal: string = "0"
   public textSize: string = "12";
   public LBarSize: string = "0.6";
   public UBarSize: string = "0.35";
 }
 
 export class LowerColumnValue1Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#9e7e38";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class LowerColumnValue2Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#59786c";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class LowerColumnValue3Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#82231c";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class LowerColumnValue4Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#511536";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class LowerColumnValue5Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#443e67";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue1Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#375669";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue2Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#456525";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue3Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#000000";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue4Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#3d3c1d";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue5Format {
-  public colLabel: string = "grey";
+  public Name: string = "";
+  public colLabel: string = "#625750";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }

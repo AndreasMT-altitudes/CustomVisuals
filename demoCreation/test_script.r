@@ -4,7 +4,7 @@ library(plotly)
 library(scales)
 library(tsibble)
 
-#df3 = read_csv("C:/Users/andre/Downloads/10000 Sales Records.csv")
+df3 = read_csv("C:/Users/andre/Downloads/10000 Sales Records.csv")
 df3 = read_csv("C:/Users/AndreasMT/Downloads/10000-Sales-Records.zip")
 
 
