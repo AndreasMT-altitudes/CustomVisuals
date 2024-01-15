@@ -33,6 +33,7 @@ export class VisualSettings extends DataViewObjectsParser {
   public mySettingsAxes: mySettingsAxes = new mySettingsAxes(); 
   public BarSettings: BarSettings = new BarSettings();
   public LegendSettings: LegendSettings = new LegendSettings();
+  public SmallMultiSettings: SmallMultiSettings = new SmallMultiSettings();
   public LowerColumnValue1Format: LowerColumnValue1Format = new LowerColumnValue1Format();
   public LowerColumnValue2Format: LowerColumnValue2Format = new LowerColumnValue2Format();   
   public LowerColumnValue3Format: LowerColumnValue3Format = new LowerColumnValue3Format();   
@@ -78,6 +79,10 @@ export class LegendSettings{
   public textSize: string = "8";
   public legendTitle: string = "";
   public legendTitleSize: string = "12"
+}
+
+export class SmallMultiSettings{
+  public numCol: number = 2
 }
 
 export class LowerColumnValue1Format {

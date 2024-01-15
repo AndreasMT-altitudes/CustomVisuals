@@ -612,6 +612,19 @@
           }
         }
       }
+    },  
+    "SmallMultiSettings": {
+      "displayName": "Small Multi settings",
+      "description": "Small Multi settings",
+      "properties": {
+        "numCol": {
+          "displayName": "Number of columns",
+          "description": "Number of columns",
+          "type": {
+            "text": true
+          }
+        }
+      }
     },
     "LowerColumnValue1Format": {
       "displayName": "Lower column value 1",

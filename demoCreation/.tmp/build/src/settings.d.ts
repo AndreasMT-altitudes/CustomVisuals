@@ -4,6 +4,7 @@ export declare class VisualSettings extends DataViewObjectsParser {
     mySettingsAxes: mySettingsAxes;
     BarSettings: BarSettings;
     LegendSettings: LegendSettings;
+    SmallMultiSettings: SmallMultiSettings;
     LowerColumnValue1Format: LowerColumnValue1Format;
     LowerColumnValue2Format: LowerColumnValue2Format;
     LowerColumnValue3Format: LowerColumnValue3Format;
@@ -42,6 +43,9 @@ export declare class LegendSettings {
     textSize: string;
     legendTitle: string;
     legendTitleSize: string;
+}
+export declare class SmallMultiSettings {
+    numCol: number;
 }
 export declare class LowerColumnValue1Format {
     Name: string;

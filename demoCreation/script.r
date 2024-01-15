@@ -56,7 +56,6 @@ for (i in 1:num_cols) {
   }
 }
 
-
 ##Setting label placement to default values if nothing else is supplied
 for (i in 1:num_cols) {
   label_name <- paste0("LowerColumnValue", i, "Format_labelPlace")
@@ -71,6 +70,14 @@ for (i in 1:num_cols) {
     assign(label_name, "top", envir = .GlobalEnv)
   }
 }
+
+##########Small Multi Settings##########################
+if (!exists("SmallMultiSettings_numCol")) {
+  SmallMultiSettings_numCol = 2
+} else {
+  SmallMultiSettings_numCol = as.numeric(SmallMultiSettings_numCol)
+}
+
 
 ##########Legend Settings###################
 if (!exists("LegendSettings_Orientation")) {
@@ -501,7 +508,7 @@ formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, func
     geom_col(data = data_to_use[data_to_use$type2 == "type2",], 
              aes(x = reorder(x_axis, date_axis), y = values, fill = type, text = formatted_vector2), 
              width = BarSettings_UBarSize)+
-             facet_grid(~small) + ##### Tror alt til small multi format kan lægges her
+             facet_wrap(~small, ncol = SmallMultiSettings_numCol) + ##### Tror alt til small multi format kan lægges her
              theme(strip.background =element_rect(fill="#FFFFFF"))+
     geom_text(data = combined_df,
               aes(x = reorder(x_axis, date_axis),

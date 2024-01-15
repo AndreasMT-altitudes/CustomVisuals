@@ -19,7 +19,7 @@ l_col1 = data.frame(df3[13])
 l_col2 = data.frame(df3[14])
 u_col2 = data.frame(df3[10])
 BarSettings_LBar_Size = 1
-small_multi =data.frame(df3[4])
+small_multi =data.frame(df3[5])
 
 LowerColumnValue1Format_textLabel = TRUE
 LowerColumnValue1Format_Name = ""
