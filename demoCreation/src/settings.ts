@@ -77,6 +77,7 @@ export class LegendSettings{
   public Orientation: string = "h";
   public textSize: string = "8";
   public legendTitle: string = "";
+  public legendTitleSize: string = "12"
 }
 
 export class LowerColumnValue1Format {

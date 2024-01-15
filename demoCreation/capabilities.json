@@ -604,6 +604,12 @@
           "type": {
             "text": true
           }
+        },
+        "legendTitleSize": {
+          "displayName": "Title font size",
+          "type": {
+            "text": true
+          }
         }
       }
     },

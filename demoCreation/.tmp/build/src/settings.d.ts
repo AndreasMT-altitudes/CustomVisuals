@@ -41,6 +41,7 @@ export declare class LegendSettings {
     Orientation: string;
     textSize: string;
     legendTitle: string;
+    legendTitleSize: string;
 }
 export declare class LowerColumnValue1Format {
     Name: string;

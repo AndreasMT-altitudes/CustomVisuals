@@ -84,6 +84,10 @@ if (!exists("LegendSettings_textSize")) {
 if (!exists("LegendSettings_legendTitle")) {
   LegendSettings_legendTitle = ""
 }
+if (!exists("LegendSettings_legendTitleSize")) {
+  LegendSettings_legendTitleSize = "12"
+}
+
 
 ##########Bar Settings###################
 if (!exists("BarSettings_textSize")) {
@@ -559,7 +563,7 @@ p = ggplotly(g, tooltip = c("text"))%>%
          legend = list(orientation = LegendSettings_Orientation,
                        y = 1.1,
                        font = list(size = LegendSettings_textSize),
-                       title=list(text=LegendSettings_legendTitle)),
+                       title=list(text=LegendSettings_legendTitle, font = list(size = LegendSettings_legendTitleSize))),
          hoverlabel = list(align = "left")
   ) %>% 
   config(displayModeBar = F);
