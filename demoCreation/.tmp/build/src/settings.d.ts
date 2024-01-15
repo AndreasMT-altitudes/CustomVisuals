@@ -3,6 +3,7 @@ import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 export declare class VisualSettings extends DataViewObjectsParser {
     mySettingsAxes: mySettingsAxes;
     BarSettings: BarSettings;
+    LegendSettings: LegendSettings;
     LowerColumnValue1Format: LowerColumnValue1Format;
     LowerColumnValue2Format: LowerColumnValue2Format;
     LowerColumnValue3Format: LowerColumnValue3Format;
@@ -21,9 +22,11 @@ export declare class rcv_scriptSettings {
 }
 export declare class mySettingsAxes {
     x_axis_title: string;
+    x_axis_titleTextSize: number;
     x_axis_textSize: number;
     x_axis_textRotate: string;
     y_axis_title: string;
+    y_axis_titleTextSize: number;
     y_axis_textSize: number;
 }
 export declare class BarSettings {
@@ -33,6 +36,11 @@ export declare class BarSettings {
     textSize: string;
     LBarSize: string;
     UBarSize: string;
+}
+export declare class LegendSettings {
+    Orientation: string;
+    textSize: string;
+    legendTitle: string;
 }
 export declare class LowerColumnValue1Format {
     Name: string;

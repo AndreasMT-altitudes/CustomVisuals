@@ -32,6 +32,7 @@ import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 export class VisualSettings extends DataViewObjectsParser {
   public mySettingsAxes: mySettingsAxes = new mySettingsAxes(); 
   public BarSettings: BarSettings = new BarSettings();
+  public LegendSettings: LegendSettings = new LegendSettings();
   public LowerColumnValue1Format: LowerColumnValue1Format = new LowerColumnValue1Format();
   public LowerColumnValue2Format: LowerColumnValue2Format = new LowerColumnValue2Format();   
   public LowerColumnValue3Format: LowerColumnValue3Format = new LowerColumnValue3Format();   
@@ -55,9 +56,11 @@ export class rcv_scriptSettings {
 
 export class mySettingsAxes {
   public x_axis_title: string = ""
+  public x_axis_titleTextSize: number = 10
   public x_axis_textSize: number = 8
   public x_axis_textRotate: string = "0"
   public y_axis_title: string = ""
+  public y_axis_titleTextSize: number = 10
   public y_axis_textSize: number = 8
 }
 
@@ -68,6 +71,12 @@ export class BarSettings{
   public textSize: string = "12";
   public LBarSize: string = "0.6";
   public UBarSize: string = "0.35";
+}
+
+export class LegendSettings{
+  public Orientation: string = "h";
+  public textSize: string = "8";
+  public legendTitle: string = "";
 }
 
 export class LowerColumnValue1Format {

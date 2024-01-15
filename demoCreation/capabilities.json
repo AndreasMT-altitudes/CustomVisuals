@@ -216,8 +216,14 @@
             "text": true
           }
         },
+        "x_axis_titleTextSize": {
+          "displayName": "X axis title text size",
+          "type": {
+            "text": true
+          }
+        },
         "x_axis_textSize": {
-          "displayName": "X axis text size",
+          "displayName": "X axis labels text size",
           "type": {
             "text": true
           }
@@ -255,6 +261,12 @@
         },
         "y_axis_title": {
           "displayName": "Y axis title",
+          "type": {
+            "text": true
+          }
+        },
+        "y_axis_titleTextSize": {
+          "displayName": "Y axis title text size",
           "type": {
             "text": true
           }
@@ -304,6 +316,10 @@
             {
               "displayName": "bio",
               "value": "bio"
+            },
+            {
+              "displayName": "Dont show unit",
+              "value": ""
             }
           ]
           }
@@ -522,6 +538,71 @@
               "value": "0.85"
             }
           ]
+          }
+        }
+      }
+    },"LegendSettings": {
+      "displayName": "Legend settings",
+      "description": "Legend settings",
+      "properties": {
+        "Orientation": {
+          "displayName": "Orientation of legend",
+          "type": {
+            "enumeration": [
+            {
+              "displayName": "Horizontal",
+              "value": "h"
+            },
+            {
+              "displayName": "Vertical",
+              "value": "v"
+            }
+          ]
+          }
+        },
+        "textSize": {
+          "displayName": "Font size of legend labels",
+          "type": {
+            "enumeration": [
+            {
+              "displayName": "1",
+              "value": "1"
+            },
+            {
+              "displayName": "2",
+              "value": "2"
+            },
+            {
+              "displayName": "4",
+              "value": "4"
+            },
+            {
+              "displayName": "6",
+              "value": "6"
+            },
+            {
+              "displayName": "8",
+              "value": "8"
+            },
+            {
+              "displayName": "10",
+              "value": "10"
+            },
+            {
+              "displayName": "12",
+              "value": "12"
+            },
+            {
+              "displayName": "14",
+              "value": "14"
+            }
+          ]
+          }
+        },
+        "legendTitle": {
+          "displayName": "Legend Title",
+          "type": {
+            "text": true
           }
         }
       }

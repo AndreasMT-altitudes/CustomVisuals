@@ -72,6 +72,19 @@ for (i in 1:num_cols) {
   }
 }
 
+##########Legend Settings###################
+if (!exists("LegendSettings_Orientation")) {
+  LegendSettings_Orientation = "h"
+}
+
+if (!exists("LegendSettings_textSize")) {
+  LegendSettings_textSize = "8"
+}
+
+if (!exists("LegendSettings_legendTitle")) {
+  LegendSettings_legendTitle = ""
+}
+
 ##########Bar Settings###################
 if (!exists("BarSettings_textSize")) {
   BarSettings_textSize = 12/4
@@ -103,6 +116,14 @@ if (!exists("mySettingsAxes_x_axis_title")) {
 
 if (!exists("mySettingsAxes_y_axis_title")) {
   mySettingsAxes_y_axis_title = ""
+}
+
+if (!exists("mySettingsAxes_x_axis_titleTextSize")) {
+mySettingsAxes_x_axis_titleTextSize = 10
+}
+
+if (!exists("mySettingsAxes_y_axis_titleTextSize")) {
+mySettingsAxes_y_axis_titleTextSize = 10
 }
 
 if (!exists("mySettingsAxes_x_axis_textSize")) {
@@ -149,7 +170,7 @@ initialize_data_frame <- function(df, str) {
       test = "Upper"
     }
       if(exists(paste0(test ,"ColumnValue", i, "Format_Name"))){
-        if(paste0(test ,"ColumnValue", i, "Format_Name") == ""){
+        if(get(paste0(test ,"ColumnValue", i, "Format_Name")) == ""){
           colnames(df)[length(df)] <- colnames(get(col_name))
       } else {
           colnames(df)[length(df)] <- get(paste0(test ,"ColumnValue", i, "Format_Name"))
@@ -214,18 +235,35 @@ colors2 <- lapply(1:num_cols, function(i) {
   label_name2 <- paste("UpperColumnValue", i, "Format_Name", sep = "")
   col_name <- paste("u_col", i, sep = "")
   label <- 5 + i
-  if (!exists(label_name) && exists(col_name)) {
-    col_vec = c()
-    name = colnames(get(col_name))
-    col_vec[name] = default_labels[label]
-    value = col_vec[name]
-    return(col_vec)
-  } else if (exists(label_name) && exists(col_name)) {
-    col_vec = c()
-    name = colnames(get(col_name))
-    col_vec[name] = get(label_name)
-    value = col_vec[name]
-    return(value)
+  if(exists(label_name2) && get(label_name2) != "") {
+    if (!exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = get(label_name2)
+      col_vec[name] = default_labels[label]
+      value = col_vec[name]
+      return(col_vec)
+    } else if (exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = get(label_name2)
+      col_vec[name] = get(label_name)
+      value = col_vec[name]
+      return(value)
+    } 
+  } else {
+    if (!exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = colnames(get(col_name))
+      col_vec[name] = default_labels[label]
+      value = col_vec[name]
+      return(col_vec)
+    } else if (exists(label_name) && exists(col_name)) {
+      col_vec = c()
+      name = colnames(get(col_name))
+      col_vec[name] = get(label_name)
+      value = col_vec[name]
+      return(value)
+    }
+
   }
 })
 
@@ -241,8 +279,6 @@ assign_numeric_order <- function(data, type_column) {
   data %>%
     mutate(numeric_order = match({{type_column}}, rev(sort(unique({{type_column}})))))
 }
-
-test = sum(data.frame(group_by(Values, x_axis) %>% summarise_all(list(c(sum ="sum"))))[2]) ## Lav til en funktion og fiks det
 
 # Function to create summary data frame
 create_summary_df <- function(data) {
@@ -292,15 +328,28 @@ initialize_columns <- function(str) {
   for (i in 1:num_cols) {
     col_name <- paste(str, "_col", i, sep = "")
     if (str == "l") text_label = paste("LowerColumnValue", i, "Format_textLabel", sep = "") else text_label = paste("UpperColumnValue", i, "Format_textLabel", sep = "")
-    if (exists(col_name) && get(text_label) == TRUE) {
+    if (str == "l") name_label = paste("LowerColumnValue", i, "Format_Name", sep = "") else name_label = paste("UpperColumnValue", i, "Format_Name", sep = "")
+    if (exists(col_name) && get(text_label) == TRUE && !exists(name_label)) {
      new_row = c(Variable = colnames(get(col_name)),
                  Names = col_name,
                  placement = get(paste(str_split(text_label, "_")[[1]][1], "_labelPlace", sep = "")))
       df = rbind(df, new_row)
-    }
+    } else if(exists(col_name) && get(text_label) == TRUE && exists(name_label) && get(name_label) != "") {
+     new_row = c(Variable = get(name_label),
+                 Names = col_name,
+                 placement = get(paste(str_split(text_label, "_")[[1]][1], "_labelPlace", sep = "")))
+      df = rbind(df, new_row)
+    }else if(exists(col_name) && get(text_label) == TRUE && exists(name_label) && get(name_label) == "") {
+     new_row = c(Variable = colnames(get(col_name)),
+                 Names = col_name,
+                 placement = get(paste(str_split(text_label, "_")[[1]][1], "_labelPlace", sep = "")))
+      df = rbind(df, new_row)
   }
-  df = df[-1,]
+
+  }
+    df = df[-1,]
   return(df)
+
 }
 used_labels1 = initialize_columns("l")
 used_labels2 = initialize_columns("u")
@@ -372,7 +421,9 @@ g <- ggplot() +
   scale_y_continuous(labels = unit_format(unit = unit, scale = scale)) +
   labs(x = mySettingsAxes_x_axis_title, y = mySettingsAxes_y_axis_title) + 
   theme(axis.text.x = element_text(size = mySettingsAxes_x_axis_textSize, angle = mySettingsAxes_x_axis_textRotate),
-        axis.text.y = element_text(size = mySettingsAxes_y_axis_textSize))
+        axis.text.y = element_text(size = mySettingsAxes_y_axis_textSize),
+        axis.title.x = element_text(size=mySettingsAxes_x_axis_titleTextSize),
+        axis.title.y = element_text(size=mySettingsAxes_y_axis_titleTextSize))
 
 if(!exists("BarSettings_decimal")){
   BarSettings_decimal = 0
@@ -408,6 +459,8 @@ if(length(df2) > 1){
   df2 = df2 %>%
     mutate(values2 = ifelse(is.na(values), paste0("0", unit), paste0(as.character(round(values*scale, BarSettings_decimal)), unit))) 
 }
+
+##########Advanced plotting start################
 
 if(exists("small_multi")) {
   data_to_use <- if (length(df) == 1) df2 else if (length(df2) == 1) df else merge(df, df2, all = TRUE, by = c("values", "type", "type2", "values2", "small", "numeric_order", "sum_values", "x_axis", "date_axis"))
@@ -503,10 +556,10 @@ p = ggplotly(g, tooltip = c("text"))%>%
   layout(plot_bgcolor='#FFFFFF',
          yaxis = list(gridcolor = "#F1F2F3",
                       gridwidth = 0.1),
-         legend = list(orientation = 'h',
+         legend = list(orientation = LegendSettings_Orientation,
                        y = 1.1,
-                       font = list(size = 9),
-                       title=list(text='')),
+                       font = list(size = LegendSettings_textSize),
+                       title=list(text=LegendSettings_legendTitle)),
          hoverlabel = list(align = "left")
   ) %>% 
   config(displayModeBar = F);
@@ -518,4 +571,3 @@ internalSaveWidget(p, 'out.html');
 ################ Reduce paddings ###################
 ReadFullFileReplaceString('out.html', 'out.html', ',"padding":[0-9]*,', ',"padding":0,')
 ####################################################
-

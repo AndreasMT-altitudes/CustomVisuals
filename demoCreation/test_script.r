@@ -16,14 +16,16 @@ category = category %>%
 
 l_col3 = data.frame(df3[12])
 l_col1 = data.frame(df3[13])
-u_col2 = data.frame(df3[14])
+l_col2 = data.frame(df3[14])
 u_col2 = data.frame(df3[10])
 BarSettings_LBar_Size = 1
 small_multi =data.frame(df3[4])
 
 LowerColumnValue1Format_textLabel = TRUE
+LowerColumnValue1Format_Name = ""
 LowerColumnValue2Format_textLabel = FALSE
 LowerColumnValue3Format_textLabel = TRUE
+LowerColumnValue3Format_Name = "test"
 
 LowerColumnValue2Format_labelColor = "#B24CC2"
 
