@@ -71,6 +71,15 @@ for (i in 1:num_cols) {
   }
 }
 
+##########General Plotting settings####################
+if (!exists("GeneralPlot_colBack")) {
+  GeneralPlot_colBack = "#FFFFFF"
+}
+
+if (!exists("GeneralPlot_colGrid")) {
+  GeneralPlot_colGrid = "#F1F2F3"
+}
+
 ##########Small Multi Settings##########################
 if (!exists("SmallMultiSettings_numCol")) {
   SmallMultiSettings_numCol = 2
@@ -200,7 +209,7 @@ Values2 <- initialize_data_frame(Values2, "u")
 
 
 #######Color Specefications
-default_labels <- c("#9e7e38", "#59786c", "#82231c", "#511536", "#443e67", "#375669", "#456525", "#000000", "#3d3c1d", "#625750")
+default_labels <- c("#43384a", "#59786c", "#82231c", "#511536", "#443e67", "#fed34c", "#f4d1c1", "#71AFE2", "#3d3c1d", "#625750")
 colors = c()
 colors2 = c()
 
@@ -564,13 +573,17 @@ formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, func
 
 ############# Create and save widget ###############
 p = ggplotly(g, tooltip = c("text"))%>%
-  layout(plot_bgcolor='#FFFFFF',
-         yaxis = list(gridcolor = "#F1F2F3",
+  layout(plot_bgcolor= GeneralPlot_colBack,
+        paper_bgcolor = GeneralPlot_colBack,
+         yaxis = list(gridcolor = GeneralPlot_colGrid,
+                      gridwidth = 0.1),
+         xaxis = list(gridcolor = GeneralPlot_colBack,
                       gridwidth = 0.1),
          legend = list(orientation = LegendSettings_Orientation,
+                       bgcolor = GeneralPlot_colBack,
                        y = 1.1,
                        font = list(size = LegendSettings_textSize),
-                       title=list(text=LegendSettings_legendTitle, font = list(size = LegendSettings_legendTitleSize))),
+                       title=list(text = LegendSettings_legendTitle, font = list(size = LegendSettings_legendTitleSize))),
          hoverlabel = list(align = "left")
   ) %>% 
   config(displayModeBar = F);

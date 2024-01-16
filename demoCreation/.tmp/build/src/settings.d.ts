@@ -1,6 +1,7 @@
 import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 export declare class VisualSettings extends DataViewObjectsParser {
+    GeneralPlot: GeneralPlot;
     mySettingsAxes: mySettingsAxes;
     BarSettings: BarSettings;
     LegendSettings: LegendSettings;
@@ -21,7 +22,12 @@ export declare class rcv_scriptSettings {
     provider: any;
     source: any;
 }
+export declare class GeneralPlot {
+    colBack: string;
+    colGrid: string;
+}
 export declare class mySettingsAxes {
+    colLabel: string;
     x_axis_title: string;
     x_axis_titleTextSize: number;
     x_axis_textSize: number;

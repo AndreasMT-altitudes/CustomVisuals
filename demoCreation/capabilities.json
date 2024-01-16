@@ -200,16 +200,38 @@
     }
   ],
   "objects": {
+    "GeneralPlot": {
+      "displayName": "General plotting settings",
+      "description": "General plotting settings",
+      "properties": {
+        "colBack": {
+          "displayName": "Background color of plot",
+          "description": "The color of the plotly background",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "colGrid": {
+          "displayName": "Color of gridlines",
+          "description": "The color of the plotly gridlines",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    },
     "mySettingsAxes": {
       "displayName": "Axes settings",
       "description": "Axes settings",
       "properties": {
-        "axisLine": {
-          "displayName": "Axis line",
-          "type": {
-            "bool": true
-          }
-        },
         "x_axis_title": {
           "displayName": "X axis title",
           "type": {
@@ -606,7 +628,7 @@
           }
         },
         "legendTitleSize": {
-          "displayName": "Title font size",
+          "displayName": "Legend Title font size",
           "type": {
             "text": true
           }

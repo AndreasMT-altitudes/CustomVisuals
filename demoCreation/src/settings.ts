@@ -30,6 +30,7 @@ import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
 export class VisualSettings extends DataViewObjectsParser {
+  public GeneralPlot: GeneralPlot = new GeneralPlot();
   public mySettingsAxes: mySettingsAxes = new mySettingsAxes(); 
   public BarSettings: BarSettings = new BarSettings();
   public LegendSettings: LegendSettings = new LegendSettings();
@@ -55,7 +56,13 @@ export class rcv_scriptSettings {
   public source     }
     
 
-export class mySettingsAxes {
+
+export class GeneralPlot{
+  public colBack: string = "#FFFFFF"
+  public colGrid: string = "#F1F2F3"
+}
+  export class mySettingsAxes {
+  public colLabel: string = "#FFFFFF"
   public x_axis_title: string = ""
   public x_axis_titleTextSize: number = 10
   public x_axis_textSize: number = 8
@@ -87,7 +94,7 @@ export class SmallMultiSettings{
 
 export class LowerColumnValue1Format {
   public Name: string = "";
-  public colLabel: string = "#9e7e38";
+  public colLabel: string = "#43384a";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
@@ -122,21 +129,21 @@ export class LowerColumnValue5Format {
 
 export class UpperColumnValue1Format {
   public Name: string = "";
-  public colLabel: string = "#375669";
+  public colLabel: string = "#fed34c";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue2Format {
   public Name: string = "";
-  public colLabel: string = "#456525";
+  public colLabel: string = "#f4d1c1";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
 
 export class UpperColumnValue3Format {
   public Name: string = "";
-  public colLabel: string = "#000000";
+  public colLabel: string = "#71AFE2";
   public textLabel: boolean = false;
   public labelPlace: string = "none";
 }
