@@ -444,6 +444,8 @@ g <- ggplot() +
         axis.text.y = element_text(size = mySettingsAxes_y_axis_textSize),
         axis.title.x = element_text(size=mySettingsAxes_x_axis_titleTextSize),
         axis.title.y = element_text(size=mySettingsAxes_y_axis_titleTextSize))
+#########Hvis plot skal kunne lægges ned og bruges på siden, skal ovenstående ændres, da akserne skal ændres og x og y skal ændres i senere plots
+
 
 if(!exists("BarSettings_decimal")){
   BarSettings_decimal = 0
@@ -553,6 +555,9 @@ formatted_vector1 <- apply(data_to_use1[data_to_use1$type2 == "type1",], 1, func
 formatted_vector2 <- apply(data_to_use1[data_to_use1$type2 == "type2",], 1, function(row) {
   paste0(row[1], ": ", row[2])
 })
+
+g + geom_col(data = data_to_use[data_to_use$type2 == "type1",], 
+             aes(x = values, y = reorder(x_axis, date_axis)))
 
   g <- g +
     geom_col(data = data_to_use[data_to_use$type2 == "type1",], 

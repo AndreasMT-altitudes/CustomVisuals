@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "author": {"name":"tester","email":"tester.dk"},
+    "resources": [
+        {
+            "resourceId": "rId0",
+            "sourceType": 5,
+            "file": "resources/customVisualName82781A47252F4E328CCA582D8CD3F11A.pbiviz.json"
+        }
+    ],
+    "visual": {"name":"customVisualName","displayName":"customVisualName","guid":"customVisualName82781A47252F4E328CCA582D8CD3F11A","visualClassName":"Visual","version":"1.0.0","description":"test","supportUrl":"test","gitHubUrl":""},
+    "metadata": {
+        "pbivizjson": {
+            "resourceId": "rId0"
+        }
+    }  
+}
